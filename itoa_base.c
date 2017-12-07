@@ -6,13 +6,13 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 20:32:09 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/04 21:06:43 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/06 21:26:08 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		getbase(char *str, long long unsigned nb, int base, int size)
+static void		getbase(char *str, unsigned long long nb, int base, int size)
 {
 	char	*str_base;
 
@@ -27,11 +27,11 @@ static void		getbase(char *str, long long unsigned nb, int base, int size)
 	}
 }
 
-static size_t	getsize(long long n, long long unsigned *nb,
+static size_t	getsize(long long n, unsigned long long *nb,
 		int *isnegative, int base)
 {
 	size_t				size;
-	long long unsigned	nb_cpy;
+	unsigned long long	nb_cpy;
 
 	if (nb == 0)
 		return (1);
@@ -40,10 +40,8 @@ static size_t	getsize(long long n, long long unsigned *nb,
 	{
 		*nb = (-n);
 		if (base == 10)
-		{
-			*isnegative = 1;
 			size++;
-		}
+		*isnegative = 1;
 	}
 	else
 		*nb = n;
@@ -58,7 +56,7 @@ static size_t	getsize(long long n, long long unsigned *nb,
 
 char			*itoa_base(long long n, int base)
 {
-	long long unsigned	nb;
+	unsigned long long	nb;
 	char				*str;
 	size_t				size;
 	int					isnegative;
@@ -70,7 +68,7 @@ char			*itoa_base(long long n, int base)
 	if (str == NULL)
 		return (NULL);
 	getbase(str, nb, base, size);
-	if (isnegative)
+	if (isnegative && base == 10)
 		str[0] = '-';
 	return (str);
 }

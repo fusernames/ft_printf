@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:25:58 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/04 22:07:58 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/06 22:03:47 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 
 typedef struct	s_spe
 {
-	char				specifier[4];
+	char				specifier;
+	char				conv[3];
 	int					zero;
 	int					hash;
 	int					space;
@@ -38,7 +39,7 @@ typedef struct	s_spe
 int				ft_printf(const char *format, ...);
 int				parser(const char *format, t_spe **start);
 int				check_exceptions(t_spe *start);
-void			get_str(va_list ap, t_spe *start);
+int				get_str(va_list ap, t_spe *start);
 
 int				is_specifier(int c);
 char			*itoa_base(long long n, int base);

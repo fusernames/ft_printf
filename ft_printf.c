@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:24:10 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/04 23:23:40 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/06 22:07:23 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,16 @@ int				ft_printf(const char *format, ...)
 
 	start = NULL;
 	if (parser(format, &start) == -1)
-		return(1);
+		return (1);
 	check_exceptions(start);
 	va_start(ap, format);
-	get_str(ap, start);
+	if (get_str(ap, start) == -1)
+		return (1);
 	print_str(format, start);
 	while (start)
 	{
-		printf("specifier\t-> %s\n", start->specifier);
+		printf("specifier\t-> %c\n", start->specifier);
+		printf("conv\t\t-> %s\n", start->conv);
 		printf("width\t\t-> %d\n", start->width);
 		printf("precision\t-> %d\n", start->precision);
 		printf("\n");

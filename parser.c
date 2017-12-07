@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 19:38:37 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/04 23:23:33 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/06 21:45:26 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		is_specifier(int c)
 {
 	return (c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'o' ||
-			c == 'X' || c == 'x' || c == 'f');
+			c == 'X' || c == 'x' || c == 'f' || c == 'p');
 }
 
 static int		is_flag(int c)
@@ -28,7 +28,8 @@ static t_spe	*init_elem(void)
 	t_spe	*elem;
 
 	elem = malloc(sizeof(t_spe));
-	elem->specifier[0] = '\0';
+	elem->specifier = '\0';
+	elem->conv[0] = '\0';
 	elem->zero = 0;
 	elem->hash = 0;
 	elem->space = 0;
@@ -89,17 +90,17 @@ static int		new_elem(const char *format, t_spe **start)
 			free(elem);
 			return (0);
 		}
-		elem->specifier[i++] = *format;
+		elem->conv[i++] = *format;
 		format++;
 	}
+	elem->conv[i] = '\0';
 	if (is_specifier(*format))
-		elem->specifier[i++] = *format;
+		elem->specifier = *format;
 	else
 	{
 		free(elem);
 		return (0);
 	}
-	elem->specifier[i] = '\0';
 	if (*start == NULL)
 		*start = elem;
 	else
