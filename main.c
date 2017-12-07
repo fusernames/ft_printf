@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:19:31 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/07 00:43:27 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/07 20:19:39 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int		main(void)
 {
-	long i;
-	i = -9223372036854775807U;
+	long unsigned i;
+
+	i = -446744073709551615;
 	//ft_printf("\n%ld, %.d, %X \n", 39293203023, 1, 9483423);
-	printf("\nprintf : %lx\n", i);
-	ft_printf("ft : %lx\n", i);
+	printf("\nprintf : %S\n", L"这是一个考验");
+	ft_printf("ft : %lo\n", i);
 	return (0);
 }
