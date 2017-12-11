@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <ctype.h>
+# include <wchar.h>
 # include "libft.h"
 
 # define LLONG_MIN 9223372036854775807
@@ -32,7 +33,7 @@ typedef struct	s_spe
 	int					less;
 	int					width;
 	int					precision;
-	char				*s;
+	unsigned char			*s;
 	struct s_spe		*next;
 }				t_spe;
 
@@ -44,5 +45,8 @@ int				get_str(va_list ap, t_spe *start);
 int				is_specifier(int c);
 char			*itoa_base(long long n, int base);
 char			*itoa_base_un(unsigned long long n, int base);
+
+unsigned char		*ft_getwstr(wchar_t *str);
+unsigned char		*ft_getwchar(wchar_t c);
 
 #endif

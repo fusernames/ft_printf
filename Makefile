@@ -34,4 +34,7 @@ fclean: clean
 f: re
 	@./$(NAME)
 
+ff: all
+	@./$(NAME)
+
 re: fclean all

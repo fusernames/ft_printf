@@ -11,14 +11,16 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <locale.h>
 
 int		main(void)
 {
-	long unsigned i;
-
-	i = -446744073709551615;
-	//ft_printf("\n%ld, %.d, %X \n", 39293203023, 1, 9483423);
-	printf("\nprintf : %S\n", L"这是一个考验");
-	ft_printf("ft : %lo\n", i);
+	wchar_t	c;
+	c = 182;
+	//printf("%zu\n", MB_CUR_MAX);
+	setlocale(LC_ALL, "");
+	//printf("printf : %lc\n", c);
+	printf("|retour : %d|\n", printf("%C\n", c));
+	ft_printf("|retour : %d|\n", ft_printf("%C\n", c));
 	return (0);
 }

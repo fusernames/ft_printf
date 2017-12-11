@@ -15,7 +15,8 @@
 int		is_specifier(int c)
 {
 	return (c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'o' ||
-			c == 'X' || c == 'x' || c == 'f' || c == 'p');
+			c == 'X' || c == 'x' || c == 'f' || c == 'p' ||
+			c == 'c' || c == 's' || c == 'S' || c == 'C');
 }
 
 static int		is_flag(int c)

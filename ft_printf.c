@@ -19,7 +19,7 @@
  * 4. Produire la str finale
  */
 
-static void	print_str(const char *format, t_spe *start)
+static int	print_str(const char *format, t_spe *start)
 {
 	char	buf[4096];
 	int		i;
@@ -48,24 +48,25 @@ static void	print_str(const char *format, t_spe *start)
 		buf[j++] = format[i++];
 	}
 	buf[j] = '\0';
-	ft_putstr(buf);
+	printf("%s", buf);
+	return(j);
 }
 
 int				ft_printf(const char *format, ...)
 {
 	t_spe	*start;
-	//t_spe	*elem;
 	va_list ap;
+	int	ret;
 
 	start = NULL;
 	if (parser(format, &start) == -1)
-		return (1);
+		return (-1);
 	check_exceptions(start);
 	va_start(ap, format);
 	if (get_str(ap, start) == -1)
-		return (1);
-	print_str(format, start);
-	while (start)
+		return (-1);
+	ret = print_str(format, start);
+	/*while (start)
 	{
 		printf("specifier\t-> %c\n", start->specifier);
 		printf("conv\t\t-> %s\n", start->conv);
@@ -73,7 +74,7 @@ int				ft_printf(const char *format, ...)
 		printf("precision\t-> %d\n", start->precision);
 		printf("\n");
 		start = start->next;
-	}
+	}*/
 	va_end(ap);
-	return (0);
+	return (ret);
 }
