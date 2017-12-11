@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:24:10 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/06 22:07:23 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/11 19:43:58 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	print_str(const char *format, t_spe *start)
 		buf[j++] = format[i++];
 	}
 	buf[j] = '\0';
-	printf("%s", buf);
+	ft_putstr(buf);
 	return(j);
 }
 
@@ -60,11 +60,17 @@ int				ft_printf(const char *format, ...)
 
 	start = NULL;
 	if (parser(format, &start) == -1)
+	{
+		lst_del(start);
 		return (-1);
+	}
 	check_exceptions(start);
 	va_start(ap, format);
 	if (get_str(ap, start) == -1)
+	{
+		lst_del(start);
 		return (-1);
+	}
 	ret = print_str(format, start);
 	/*while (start)
 	{
@@ -76,5 +82,6 @@ int				ft_printf(const char *format, ...)
 		start = start->next;
 	}*/
 	va_end(ap);
+	lst_del(start);
 	return (ret);
 }

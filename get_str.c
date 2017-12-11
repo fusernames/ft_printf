@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 18:12:25 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/07 20:14:46 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/11 19:56:31 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ static int	handle_unsigned(va_list ap, t_spe *elem)
 
 	conv = elem->conv;
 	c = elem->specifier;
-	if (!conv[0])
-		n = va_arg(ap, unsigned int);
-	else if (!strcmp(conv, "hh"))
+	if (!strcmp(conv, "hh"))
 		n = (unsigned char)va_arg(ap, int);
 	else if (!strcmp(conv, "h"))
 		n = (unsigned short int)va_arg(ap, int);
 	else if (!strcmp(conv, "l"))
 		n = va_arg(ap, unsigned long);
-	else if (!strcmp(conv, "ll"))
+	else if (!strcmp(conv, "ll") || c == 'p')
 		n = va_arg(ap, unsigned long long);
+	else if (!conv[0])
+		n = va_arg(ap, unsigned int);
 	else
 		return (-1);
 	elem->s = (unsigned char *)create_str(c, &n);
@@ -59,16 +59,16 @@ static int	handle_int(va_list ap, t_spe *elem)
 
 	conv = elem->conv;
 	c = elem->specifier;
-	if (!conv[0] && c != 'p')
-		n = va_arg(ap, int);
-	else if (!strcmp(conv, "hh"))
+	if (!strcmp(conv, "hh"))
 		n = (char)va_arg(ap, int);
 	else if (!strcmp(conv, "h"))
 		n = (short int)va_arg(ap, int);
 	else if (!strcmp(conv, "l"))
 		n = va_arg(ap, long);
-	else if (!strcmp(conv, "ll") || c == 'p')
+	else if (!strcmp(conv, "ll"))
 		n = va_arg(ap, long long);
+	else if (!conv[0])
+		n = va_arg(ap, int);
 	else
 		return (-1);
 	elem->s = (unsigned char *)create_str(c, &n);

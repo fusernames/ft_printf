@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:25:58 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/07 19:21:44 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/11 19:17:38 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ int				ft_printf(const char *format, ...);
 int				parser(const char *format, t_spe **start);
 int				check_exceptions(t_spe *start);
 int				get_str(va_list ap, t_spe *start);
+int				lst_del(t_spe *start);
+t_spe			*init_elem(void);
 
 int				is_specifier(int c);
 char			*itoa_base(long long n, int base);
 char			*itoa_base_un(unsigned long long n, int base);
 
-unsigned char		*ft_getwstr(wchar_t *str);
-unsigned char		*ft_getwchar(wchar_t c);
+unsigned char	*ft_getwstr(wchar_t *str);
+unsigned char	*ft_getwchar(wchar_t c);
 
 #endif

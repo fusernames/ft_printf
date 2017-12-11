@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_getwstr.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/11 19:25:03 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/12/11 19:25:17 by alcaroff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 void	printbyte(unsigned char c)
@@ -45,8 +57,8 @@ unsigned char	*ft_getwstr(wchar_t *str)
 {
 	unsigned char 	*ret;
 	unsigned char	*wc;
-	int			i;
-	int 			j;
+	int				i;
+	int				j;
 
 	i = 0;
 	if ((ret = malloc(ft_strlen((char *)str) * 4 + 1)) == NULL)

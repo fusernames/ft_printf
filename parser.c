@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 19:38:37 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/06 21:45:26 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/11 19:40:35 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,6 @@ static int		is_flag(int c)
 	return (c == ' ' || c == '-' || c == '+' || c == '#' || c == '0');
 }
 
-static t_spe	*init_elem(void)
-{
-	t_spe	*elem;
-
-	elem = malloc(sizeof(t_spe));
-	elem->specifier = '\0';
-	elem->conv[0] = '\0';
-	elem->zero = 0;
-	elem->hash = 0;
-	elem->space = 0;
-	elem->plus = 0;
-	elem->less = 0;
-	elem->width = 0;
-	elem->precision = -1;
-	elem->s = NULL;
-	elem->next = NULL;
-
-	return (elem);
-}
 
 static int		new_elem(const char *format, t_spe **start)
 {
@@ -73,14 +54,31 @@ static int		new_elem(const char *format, t_spe **start)
 			elem->zero = 1;
 		format++;
 	}
-	if (isdigit(*format))
-		elem->width = atoi(format);
-	while (isdigit(*format))
+	if (ft_isdigit(*format))
+	{
+		elem->width = ft_atoi(format);
+		while (ft_isdigit(*format))
+			format++;
+	}
+	else if(*format == '*')
+	{
+		elem->width = -99;
 		format++;
+	}
 	if (*format == '.')
 	{
 		format++;
-		elem->precision = atoi(format);
+		if (ft_isdigit(*format))
+		{
+			elem->precision = atoi(format);
+			while (ft_isdigit(*format))
+				format++;
+		}
+		else if(*format == '*')
+		{
+			elem->precision = -99;
+			format++;
+		}
 	}
 	while (isdigit(*format))
 		format++;
