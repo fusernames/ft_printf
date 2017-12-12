@@ -25,14 +25,17 @@ static int		is_flag(int c)
 }
 
 
-static int		new_elem(const char *format, t_spe **start)
+static int		new_elem(const char *format, t_spe **start, va_list *ap)
 {
 	t_spe	*elem;
 	t_spe	*last;
 	int		i;
+	va_list		cpy;
 
+	va_copy(cpy, *ap);
 	i = 0;
 	elem = *start;
+	va_arg(*ap, void *);
 	while (elem)
 	{
 		if (elem->next == NULL)
@@ -62,7 +65,7 @@ static int		new_elem(const char *format, t_spe **start)
 	}
 	else if(*format == '*')
 	{
-		elem->width = -99;
+		elem->width = va_arg(*ap, long long);
 		format++;
 	}
 	if (*format == '.')
@@ -76,7 +79,7 @@ static int		new_elem(const char *format, t_spe **start)
 		}
 		else if(*format == '*')
 		{
-			elem->precision = -99;
+			elem->precision = va_arg(*ap, long long);
 			format++;
 		}
 	}
@@ -87,7 +90,7 @@ static int		new_elem(const char *format, t_spe **start)
 		if (i == 2)
 		{
 			free(elem);
-			return (0);
+			return (-1);
 		}
 		elem->conv[i++] = *format;
 		format++;
@@ -96,26 +99,28 @@ static int		new_elem(const char *format, t_spe **start)
 	if (is_specifier(*format))
 		elem->specifier = *format;
 	else
-	{
-		free(elem);
-		return (0);
-	}
+		return (-1);
 	if (*start == NULL)
 		*start = elem;
 	else
 		last->next = elem;
+	if (parser_getstr(cpy, elem) == -1)
+		return (-1);
+	va_end(cpy);
 	return (1);
 }
 
-int			parser(const char *format, t_spe **start)
+int			parser(const char *format, t_spe **start, va_list ap)
 {
 	int		i;
+	va_list	cpy;
 
+	va_copy(cpy, ap);
 	i = 0;
 	while(format[i])
 	{
 		if (format[i] == '%' && format[i + 1] != '%')
-			if (!new_elem(&format[i + 1], start))
+			if (new_elem(&format[i + 1], start, &cpy) == -1)
 				return (-1);
 		if (format[i] == '%' && format[i + 1] == '%')
 			i++;

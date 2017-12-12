@@ -95,56 +95,28 @@ static int	handle_char(va_list ap, t_spe *elem)
 	return (1);
 }
 
-int			get_str(va_list ap, t_spe *start)
+int			parser_getstr(va_list ap, t_spe *elem)
 {
 	char				c;
 
-	while (start)
+	c = elem->specifier;
+	if (c == 'd' || c == 'D' || c == 'i')
 	{
-		c = start->specifier;
-		if (c == 'd' || c == 'D' || c == 'i')
-		{
-			if (handle_int(ap, start) == -1)
-				return (-1);
-		}
-		else if (c == 'x' || c == 'X' || c == 'u' || c == 'U' || c == 'o'||
-				c == 'O' || c == 'p')
-		{
-			if (handle_unsigned(ap, start) == -1)
-				return (-1);
-		}
-		else if (c == 's' || c == 'S' || c == 'c' || c == 'C')
-		{
-			if (handle_char(ap, start) == -1)
-				return(-1);
-		}
-		else
+		if (handle_int(ap, elem) == -1)
 			return (-1);
-		start = start->next;
 	}
+	else if (c == 'x' || c == 'X' || c == 'u' || c == 'U' || c == 'o'||
+			c == 'O' || c == 'p')
+	{
+		if (handle_unsigned(ap, elem) == -1)
+			return (-1);
+	}
+	else if (c == 's' || c == 'S' || c == 'c' || c == 'C')
+	{
+		if (handle_char(ap, elem) == -1)
+			return(-1);
+	}
+	else
+		return (-1);
 	return (1);
 }
-
-/*void	get_str(va_list ap, t_c *start)
-{
-	char *s;
-	while (start)
-	{
-		c = start->specifier;
-		if (!ft_strcmp(s, "s"))
-			start->c = va_arg(ap, char*);
-		else if (!ft_strcmp(s, "d"))
-			start->c = itoa_base(va_arg(ap, long), 10);
-		else if (!ft_strcmp(s, "ld"))
-			start->c = itoa_base(va_arg(ap, long), 10);
-		else if (!ft_strcmp(s, "X"))
-			start->c = itoa_base(va_arg(ap, int), 16);
-		else if (!ft_strcmp(s, "x"))
-			start->c = ft_strtolower(itoa_base(va_arg(ap, int), 16));
-		else if (!ft_strcmp(s, "p"))
-			start->c = ft_strtolower(itoa_base(va_arg(ap, long), 16));
-		else
-			start->c = itoa_base(va_arg(ap, int), 10);
-		start = start->next;
-	}
-}*/

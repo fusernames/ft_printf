@@ -59,28 +59,23 @@ int				ft_printf(const char *format, ...)
 	int	ret;
 
 	start = NULL;
-	if (parser(format, &start) == -1)
+	va_start(ap, format);
+	if (parser(format, &start, ap) == -1)
 	{
 		lst_del(start);
 		return (-1);
 	}
 	check_exceptions(start);
-	va_start(ap, format);
-	if (get_str(ap, start) == -1)
-	{
-		lst_del(start);
-		return (-1);
-	}
 	ret = print_str(format, start);
-	/*while (start)
+	while (start)
 	{
 		printf("specifier\t-> %c\n", start->specifier);
 		printf("conv\t\t-> %s\n", start->conv);
-		printf("width\t\t-> %d\n", start->width);
-		printf("precision\t-> %d\n", start->precision);
+		printf("width\t\t-> %ld\n", start->width);
+		printf("precision\t-> %ld\n", start->precision);
 		printf("\n");
 		start = start->next;
-	}*/
+	}
 	va_end(ap);
 	lst_del(start);
 	return (ret);

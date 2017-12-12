@@ -31,16 +31,16 @@ typedef struct	s_spe
 	int					space;
 	int					plus;
 	int					less;
-	int					width;
-	int					precision;
+	long				width;
+	long				precision;
 	unsigned char			*s;
 	struct s_spe		*next;
 }				t_spe;
 
 int				ft_printf(const char *format, ...);
-int				parser(const char *format, t_spe **start);
+int				parser(const char *format, t_spe **start, va_list ap);
 int				check_exceptions(t_spe *start);
-int				get_str(va_list ap, t_spe *start);
+int				parser_getstr(va_list ap, t_spe *start);
 int				lst_del(t_spe *start);
 t_spe			*init_elem(void);
 

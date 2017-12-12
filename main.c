@@ -15,13 +15,14 @@
 
 int		main(void)
 {
-	wchar_t	c;
-	c = 4660;
-	printf("%d\n", MB_CUR_MAX);
+	//wchar_t	c;
+	//c = 4660;
+	//printf("%d\n", MB_CUR_MAX);
 	setlocale(LC_ALL, "");
-	printf("%d\n", MB_CUR_MAX);
+	//printf("%d\n", MB_CUR_MAX);
 	//printf("printf : %lc\n", c);
-	printf("|retour : %d|\n", printf("%C\n", c));
-	ft_printf("|retour : %d|\n", ft_printf("%C\n", c));
+	//printf("|retour : %d|\n", printf("%C\n", c));
+	//ft_printf("|retour : %d|\n", ft_printf("%C\n", c));
+	ft_printf("salut %0*.*d, %.*d\n", 120, 20, 999999, 359, 15);
 	return (0);
 }
