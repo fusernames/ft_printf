@@ -32,7 +32,9 @@ unsigned char	*ft_getwchar(wchar_t c)
 	if ((ret = malloc(5)) == NULL)
 		return (NULL);
 	ft_bzero(ret, 5);
-	if (c <= 2047)
+	if (c <= 127)
+		ret[0] = c;
+	else if (c <= 2047)
 	{
 		ret[0] = (((c >> 6) & 31) + 192);
 		ret[1] = ((c & 63) + 128);

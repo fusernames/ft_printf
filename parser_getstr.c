@@ -82,8 +82,8 @@ static int	handle_char(va_list ap, t_spe *elem)
 
 	c = elem->specifier;
 	conv = elem->conv;
-	if (c == 'c' && !conv)
-		elem->s = ft_getwchar(va_arg(ap, int));
+	if (c == 'c' && !conv[0])
+		elem->s = ft_getwchar((char)va_arg(ap, int));
 	else if (c == 's' && !conv)
 		elem->s = (unsigned char *)va_arg(ap, char *);
 	else if (c == 'C' || (c == 'c' && !strcmp(conv, "l")))

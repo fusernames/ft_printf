@@ -60,14 +60,15 @@ int				ft_printf(const char *format, ...)
 
 	start = NULL;
 	va_start(ap, format);
-	if (parser(format, &start, ap) == -1)
+	if (parser(format, &start, &ap) == -1)
 	{
 		lst_del(start);
 		return (-1);
 	}
 	check_exceptions(start);
+	crave(start);
 	ret = print_str(format, start);
-	while (start)
+	/*while (start)
 	{
 		printf("specifier\t-> %c\n", start->specifier);
 		printf("conv\t\t-> %s\n", start->conv);
@@ -75,7 +76,7 @@ int				ft_printf(const char *format, ...)
 		printf("precision\t-> %ld\n", start->precision);
 		printf("\n");
 		start = start->next;
-	}
+	}*/
 	va_end(ap);
 	lst_del(start);
 	return (ret);

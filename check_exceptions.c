@@ -14,8 +14,33 @@
 
 static int	check_flags(t_spe *elem)
 {
-	if (elem->zero && elem->less)
+	char	c;
+	c = elem->specifier;
+	if (c == 'x' || c == 'X' || c == 'o')
+	{
+		elem->space = 0;
 		elem->zero = 0;
+		elem->plus = 0;
+	}
+	if (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U')
+		elem->hash = 0;
+	if (c == 'c' || c == 'C' || c == 's' || c == 's' || c == 'p')
+	{
+		elem->zero = 0;
+		elem->hash = 0;
+		elem->space = 0;
+		elem->precision = -1;
+	}
+	if (elem->plus)
+		elem->space = 0;
+	if (elem->less)
+		elem->zero = 0;
+	if (elem->width > 0 && elem->zero)
+	{
+		elem->precision = elem->width;
+		elem->width = 0;
+		elem->zero = 0;
+	}
 	return (1);
 }
 

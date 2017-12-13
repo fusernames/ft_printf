@@ -10,31 +10,36 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	ft_printf
+NAME		=	ft_printf.a
 LIBFT		=	libft/libft.a
 FLAGS		=	-Wall -Wextra
 INCLUDES	=	libft/includes
-SRC			=	$(wildcard *.c)
+SRC			=	\
+	ft_printf.c parser.c parser_getstr.c check_exceptions.c crave.c struct_manager.c \
+	itoa_base.c itoa_base_un.c ft_getwstr.c
 OBJ			=	$(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	gcc $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME) -I $(INCLUDES)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 %.o: %.c
 	gcc -c $< $(FLAGS) -o $@ -I $(INCLUDES)
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ) main.o
 
 fclean: clean
 	@rm -rf $(NAME)
 
 f: re
-	@./$(NAME)
+	@gcc main.c $(NAME) $(LIBFT) $(FLAGS) -I $(INCLUDES) -o ft_printf
+	@./ft_printf
 
 ff: all
-	@./$(NAME)
+	@gcc main.c $(NAME) $(LIBFT) $(FLAGS) -I $(INCLUDES) -o ft_printf
+	@./ft_printf
 
 re: fclean all

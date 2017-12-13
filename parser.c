@@ -30,19 +30,17 @@ static int		new_elem(const char *format, t_spe **start, va_list *ap)
 	t_spe	*elem;
 	t_spe	*last;
 	int		i;
-	va_list		cpy;
 
-	va_copy(cpy, *ap);
 	i = 0;
 	elem = *start;
-	va_arg(*ap, void *);
 	while (elem)
 	{
 		if (elem->next == NULL)
 			last = elem;
 		elem = elem->next;
 	}
-	elem = init_elem();
+	if (!(elem = init_elem()))
+		return (-1);
 	while(is_flag(*format))
 	{
 		if (*format == ' ')
@@ -104,23 +102,20 @@ static int		new_elem(const char *format, t_spe **start, va_list *ap)
 		*start = elem;
 	else
 		last->next = elem;
-	if (parser_getstr(cpy, elem) == -1)
+	if (parser_getstr(*ap, elem) == -1)
 		return (-1);
-	va_end(cpy);
 	return (1);
 }
 
-int			parser(const char *format, t_spe **start, va_list ap)
+int			parser(const char *format, t_spe **start, va_list *ap)
 {
 	int		i;
-	va_list	cpy;
 
-	va_copy(cpy, ap);
 	i = 0;
 	while(format[i])
 	{
 		if (format[i] == '%' && format[i + 1] != '%')
-			if (new_elem(&format[i + 1], start, &cpy) == -1)
+			if (new_elem(&format[i + 1], start, ap) == -1)
 				return (-1);
 		if (format[i] == '%' && format[i + 1] == '%')
 			i++;
