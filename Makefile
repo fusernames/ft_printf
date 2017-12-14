@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	ft_printf.a
+NAME		=	libftprintf.a
 LIBFT		=	libft/libft.a
 FLAGS		=	-Wall -Wextra
 INCLUDES	=	libft/includes
