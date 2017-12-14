@@ -33,7 +33,7 @@ typedef struct	s_spe
 	int					less;
 	long				width;
 	long				precision;
-	unsigned char			*s;
+	char				*s;
 	struct s_spe		*next;
 }				t_spe;
 
@@ -49,7 +49,7 @@ int				is_specifier(int c);
 char			*itoa_base(long long n, int base);
 char			*itoa_base_un(unsigned long long n, int base);
 
-unsigned char	*ft_getwstr(wchar_t *str);
-unsigned char	*ft_getwchar(wchar_t c);
+char			*ft_getwstr(wchar_t *str);
+char			*ft_getwchar(wchar_t c);
 
 #endif

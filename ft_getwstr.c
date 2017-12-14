@@ -12,24 +12,11 @@
 
 #include "ft_printf.h"
 
-void	printbyte(unsigned char c)
+char	*ft_getwchar(wchar_t c)
 {
-	int i;
-	i = 0;
-
-	while (i < 8)
-	{
-		printf("%d", !!((c << i) & 128));
-		i++;
-	}
-	printf(" ");
-}
-
-unsigned char	*ft_getwchar(wchar_t c)
-{
-	unsigned char	*ret;
-
-	if ((ret = malloc(5)) == NULL)
+	char	*ret;
+	
+	if (c < 0 || (ret = malloc(5)) == NULL)
 		return (NULL);
 	ft_bzero(ret, 5);
 	if (c <= 127)
@@ -55,10 +42,10 @@ unsigned char	*ft_getwchar(wchar_t c)
 	return (ret);
 }
 
-unsigned char	*ft_getwstr(wchar_t *str)
+char	*ft_getwstr(wchar_t *str)
 {
-	unsigned char 	*ret;
-	unsigned char	*wc;
+	char	 	*ret;
+	char		*wc;
 	int				i;
 	int				j;
 
@@ -67,18 +54,14 @@ unsigned char	*ft_getwstr(wchar_t *str)
 		return (NULL);
 	while (*str)
 	{
-		if (*str <= 127)
-			ret[i++] = *str;
-		else
-		{
-			j = 0;
-			if ((wc = ft_getwchar(*str)) == NULL)
-				return (NULL);
-			while (wc[j])
-				ret[i++] = wc[j++];
-			free(wc);
-		}
+		j = 0;
+		if ((wc = ft_getwchar(*str)) == NULL)
+			return (NULL);
+		while (wc[j])
+			ret[i++] = wc[j++];
+		free(wc);
 		str++;
 	}
+	ret[i] = '\0';
 	return (ret);
 }

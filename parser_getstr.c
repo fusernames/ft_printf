@@ -47,7 +47,7 @@ static int	handle_unsigned(va_list ap, t_spe *elem)
 		n = va_arg(ap, unsigned int);
 	else
 		return (-1);
-	elem->s = (unsigned char *)create_str(c, &n);
+	elem->s = create_str(c, &n);
 	return (1);
 }
 
@@ -71,7 +71,7 @@ static int	handle_int(va_list ap, t_spe *elem)
 		n = va_arg(ap, int);
 	else
 		return (-1);
-	elem->s = (unsigned char *)create_str(c, &n);
+	elem->s = create_str(c, &n);
 	return (1);
 }
 
@@ -85,11 +85,17 @@ static int	handle_char(va_list ap, t_spe *elem)
 	if (c == 'c' && !conv[0])
 		elem->s = ft_getwchar((char)va_arg(ap, int));
 	else if (c == 's' && !conv)
-		elem->s = (unsigned char *)va_arg(ap, char *);
+		elem->s = va_arg(ap, char *);
 	else if (c == 'C' || (c == 'c' && !strcmp(conv, "l")))
-		elem->s = ft_getwchar(va_arg(ap, wchar_t));
+	{
+		if((elem->s = ft_getwchar(va_arg(ap, wchar_t))) == NULL)
+			return (-1);
+	}
 	else if (c == 'S' || (c == 's' && !strcmp(conv, "l")))
-		elem->s = ft_getwstr(va_arg(ap, wchar_t *));
+	{
+		if((elem->s = ft_getwstr(va_arg(ap, wchar_t *))) == NULL)
+			return (-1);
+	}
 	if (!elem->s)
 		return (-1);
 	return (1);

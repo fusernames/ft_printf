@@ -19,17 +19,20 @@ static int	check_flags(t_spe *elem)
 	if (c == 'x' || c == 'X' || c == 'o')
 	{
 		elem->space = 0;
-		elem->zero = 0;
 		elem->plus = 0;
 	}
 	if (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'U')
 		elem->hash = 0;
-	if (c == 'c' || c == 'C' || c == 's' || c == 's' || c == 'p')
+	if (c == 'c' || c == 'C' || c == 's' || c == 'S' || c == 'p')
 	{
+		elem->plus = 0;
 		elem->zero = 0;
-		elem->hash = 0;
 		elem->space = 0;
 		elem->precision = -1;
+		if (c != 'p')
+			elem->hash = 0;
+		else
+			elem->hash = 1;
 	}
 	if (elem->plus)
 		elem->space = 0;
@@ -41,6 +44,11 @@ static int	check_flags(t_spe *elem)
 		elem->width = 0;
 		elem->zero = 0;
 	}
+	if (elem->s[0] == '-')
+	{
+		elem->plus = 0;
+		elem->space = 0;
+	}
 	return (1);
 }
 
@@ -49,6 +57,7 @@ int			check_exceptions(t_spe *start)
 	while (start)
 	{
 		check_flags(start);
+		//check_specifier(start);
 		start = start->next;
 	}
 	return (1);
