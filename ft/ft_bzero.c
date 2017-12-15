@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 18:19:31 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:55:23 by alcaroff         ###   ########.fr       */
+/*   Created: 2017/11/10 21:22:44 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/11/11 16:01:25 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <locale.h>
 
-int		main(void)
+void	ft_bzero(void *s, size_t n)
 {
-	setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("%20w %d", 5));
-	printf("|retour ft : %d|\n", ft_printf("% Zooo"));
-	//ft_printf("%d\n", 20);
-	return (0);
+	char	*s_char;
+	size_t	i;
+
+	i = 0;
+	s_char = (char *)s;
+	while (i < n)
+	{
+		s_char[i] = '\0';
+		i++;
+	}
 }

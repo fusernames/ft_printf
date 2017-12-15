@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
 int		is_specifier(int c)
 {
-	return (c == 's' || c == 'd' || c == 'i' || c == 'u' || c == 'o' ||
+	return (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'o' ||
 			c == 'X' || c == 'x' || c == 'f' || c == 'p' ||
 			c == 'c' || c == 's' || c == 'S' || c == 'C');
 }

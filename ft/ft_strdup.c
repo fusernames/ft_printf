@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 18:19:31 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:55:23 by alcaroff         ###   ########.fr       */
+/*   Created: 2017/11/07 22:14:18 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/11/11 17:26:05 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <locale.h>
 
-int		main(void)
+char	*ft_strdup(const char *s)
 {
-	setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("%20w %d", 5));
-	printf("|retour ft : %d|\n", ft_printf("% Zooo"));
-	//ft_printf("%d\n", 20);
-	return (0);
+	char	*dup;
+
+	if (s == NULL)
+		return (NULL);
+	if ((dup = (char *)malloc((ft_strlen(s) + 1))) == NULL)
+		return (NULL);
+	ft_strcpy(dup, s);
+	return (dup);
 }

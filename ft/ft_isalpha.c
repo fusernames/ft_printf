@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 18:19:31 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:55:23 by alcaroff         ###   ########.fr       */
+/*   Created: 2017/11/08 15:10:09 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/11/08 15:13:57 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
-#include <locale.h>
-
-int		main(void)
+int		ft_isalpha(int c)
 {
-	setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("%20w %d", 5));
-	printf("|retour ft : %d|\n", ft_printf("% Zooo"));
-	//ft_printf("%d\n", 20);
-	return (0);
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }

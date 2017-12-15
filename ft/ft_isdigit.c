@@ -1,23 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 18:19:31 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:55:23 by alcaroff         ###   ########.fr       */
+/*   Created: 2017/11/08 23:05:56 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/11/09 15:22:52 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
-#include <locale.h>
-
-int		main(void)
+int		ft_isdigit(int c)
 {
-	setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("%20w %d", 5));
-	printf("|retour ft : %d|\n", ft_printf("% Zooo"));
-	//ft_printf("%d\n", 20);
-	return (0);
+	return (c >= '0' && c <= '9');
 }

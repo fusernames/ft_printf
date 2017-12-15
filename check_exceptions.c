@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
 static int	check_flags(t_spe *elem)
 {
@@ -29,7 +29,7 @@ static int	check_flags(t_spe *elem)
 		elem->zero = 0;
 		elem->space = 0;
 		elem->precision = -1;
-		if (c != 'p')
+		if (c != 'p' || !ft_strcmp(elem->s, "(nil)"))
 			elem->hash = 0;
 		else
 			elem->hash = 1;

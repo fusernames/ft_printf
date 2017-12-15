@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/12/01 18:19:31 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:55:23 by alcaroff         ###   ########.fr       */
+/*   Created: 2017/11/11 16:05:57 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/11/12 15:46:30 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
-#include <locale.h>
 
-int		main(void)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("%20w %d", 5));
-	printf("|retour ft : %d|\n", ft_printf("% Zooo"));
-	//ft_printf("%d\n", 20);
-	return (0);
+	size_t	i;
+
+	i = 0;
+	if (n == 0)
+		return (dest);
+	if (src < dest)
+	{
+		while (n > 0)
+		{
+			n--;
+			((char*)dest)[n] = ((char*)src)[n];
+		}
+	}
+	else
+	{
+		while (i < n)
+		{
+			((char*)dest)[i] = ((char*)src)[i];
+			i++;
+		}
+	}
+	return (dest);
 }

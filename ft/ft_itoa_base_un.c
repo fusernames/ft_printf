@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
 static void		getbase(char *str, unsigned long long n, int base, int size)
 {
@@ -42,13 +42,14 @@ static size_t	getsize(unsigned long long n, int base)
 	return (size);
 }
 
-char			*itoa_base_un(unsigned long long n, int base)
+char			*ft_itoa_base_un(unsigned long long n, int base)
 {
 	char				*str;
 	size_t				size;
 
 	size = getsize(n, base);
-	str = ft_strnew(size);
+	str = malloc(size + 1);
+	str[size] = '\0';
 	if (str == NULL)
 		return (NULL);
 	getbase(str, n, base, size);

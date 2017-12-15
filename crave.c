@@ -1,4 +1,4 @@
-#include "ft_printf.h"
+#include "libftprintf.h"
 
 static int	flags(t_spe *e, char *buf)
 {
@@ -76,14 +76,14 @@ int	crave(t_spe *start)
 	char	buf[4096];
 	int	i;
 
-	i = 0;
 	while(start)
 	{
+		i = 0;
 		ft_bzero(buf, 4096);
 		i += flags(start, &buf[i]);
 		i += precision(start, buf, i);
-		i += width(start, buf);
-		buf[i] = '\0';
+		if (start->width > 0)
+			i += width(start, buf);
 		free(start->s);
 		start->s = ft_strdup(buf);
 		start = start->next;

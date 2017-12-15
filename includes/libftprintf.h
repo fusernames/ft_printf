@@ -10,15 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#ifndef LIBFTPRINTF_H
+# define LIBFTPRINTF_H
 
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <ctype.h>
+# include <unistd.h>
 # include <wchar.h>
-# include "libft.h"
+# include <stdint.h>
 
 # define LLONG_MIN 9223372036854775807
 
@@ -46,10 +47,22 @@ int				lst_del(t_spe *start);
 t_spe			*init_elem(void);
 
 int				is_specifier(int c);
-char			*itoa_base(long long n, int base);
-char			*itoa_base_un(unsigned long long n, int base);
 
+char			*ft_itoa_base(long long n, int base);
+char			*ft_itoa_base_un(unsigned long long n, int base);
 char			*ft_getwstr(wchar_t *str);
 char			*ft_getwchar(wchar_t c);
+
+int				ft_atoi(const char *s);
+void			ft_bzero(void *s, size_t n);
+int				ft_isalpha(int c);
+int				ft_isdigit(int c);
+void			*ft_memmove(void *dest, const void *src, size_t n);
+int				ft_strcmp(const char *s1, const char *s2);
+char			*ft_strcpy(char *dest, const char *src);
+char			*ft_strdup(const char *s);
+size_t			ft_strlen(const char *s);
+char			*ft_strtolower(char *str);
+char			*ft_getchar(char c);
 
 #endif

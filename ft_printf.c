@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
 /*
  * 1. Parser les % dans une liste
@@ -21,35 +21,45 @@
 
 static int	print_str(const char *format, t_spe *start)
 {
-	char	buf[4096];
 	int		i;
 	int		j;
-	int		k;
+	int		ret;
+	char	c;
 
 	i = 0;
-	j = 0;
-	k = 0;
+	ret = 0;
 	while (format[i])
 	{
 		if (format[i] == '%' && format[i + 1] != '%')
 		{
+			j = 0;
 			while (!is_specifier(format[i]) && format[i])
 				i++;
 			i++;
-			while (start->s[k])
-				buf[j++] = start->s[k++];
+			c = start->specifier;
+			while (start->s[j])
+				write(1, &start->s[j++], 1);
+			if (j == 0 && (c == 'c' || c == 'C'))
+			{
+				write(1, &start->s[j], 1);
+				ret++;
+			}
+			ret += j;
 			start = start->next;
-			k = 0;
 		}
-		else if (format[i] == '%' && format[i] == '%')
+		else if (format[i] == '%' && format[i + 1] == '%')
+		{
 			i++;
-		if (!format[i])
-			break ; 
-		buf[j++] = format[i++];
+			write(1, &format[i++], 1);
+			ret++;
+		}
+		else if (format[i])
+		{
+			write(1, &format[i++], 1);
+			ret++;
+		}
 	}
-	buf[j] = '\0';
-	ft_putstr(buf);
-	return(j);
+	return(ret);
 }
 
 int				ft_printf(const char *format, ...)
@@ -74,6 +84,7 @@ int				ft_printf(const char *format, ...)
 		printf("conv\t\t-> %s\n", start->conv);
 		printf("width\t\t-> %ld\n", start->width);
 		printf("precision\t-> %ld\n", start->precision);
+		printf("str\t\t-> %s\n", start->s);
 		printf("\n");
 		start = start->next;
 	}*/
