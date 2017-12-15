@@ -78,17 +78,19 @@ int				ft_printf(const char *format, ...)
 	check_exceptions(start);
 	crave(start);
 	ret = print_str(format, start);
-	/*while (start)
+	/*
+	while (start)
 	{
 		printf("\nspecifier\t-> %c\n", start->specifier);
 		printf("conv\t\t-> %s\n", start->conv);
-		printf("+\t\t-> %s\n", start->conv);
+		printf("+\t\t-> %d\n", start->plus);
 		printf("width\t\t-> %ld\n", start->width);
 		printf("precision\t-> %ld\n", start->precision);
 		printf("str\t\t-> %s\n", start->s);
 		printf("\n");
 		start = start->next;
-	}*/
+	}
+	*/
 	va_end(ap);
 	lst_del(start);
 	return (ret);

@@ -20,12 +20,6 @@ static void	flags_vs_flags(t_spe *elem)
 		elem->space = 0;
 	if (elem->less)
 		elem->zero = 0;
-	if (elem->width > 0 && elem->zero)
-	{
-		elem->precision = elem->width;
-		elem->width = 0;
-		elem->zero = 0;
-	}
 }
 
 static void	flags_vs_str(t_spe *elem)
