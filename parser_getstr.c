@@ -43,7 +43,7 @@ static int	handle_unsigned(va_list ap, t_spe *elem)
 		n = (unsigned char)va_arg(ap, int);
 	else if (!ft_strcmp(conv, "h"))
 		n = (unsigned short int)va_arg(ap, int);
-	else if (!ft_strcmp(conv, "l"))
+	else if (!ft_strcmp(conv, "l" || c == 'U'))
 		n = va_arg(ap, unsigned long);
 	else if (!ft_strcmp(conv, "ll") || c == 'p')
 		n = va_arg(ap, unsigned long long);
@@ -71,7 +71,7 @@ static int	handle_int(va_list ap, t_spe *elem)
 		n = (char)va_arg(ap, int);
 	else if (!ft_strcmp(conv, "h"))
 		n = (short int)va_arg(ap, int);
-	else if (!ft_strcmp(conv, "l"))
+	else if (!ft_strcmp(conv, "l" || c == 'D'))
 		n = va_arg(ap, long);
 	else if (!ft_strcmp(conv, "ll"))
 		n = va_arg(ap, long long);
