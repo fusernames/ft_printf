@@ -33,10 +33,7 @@ static int	width(t_spe *e, char *buf)
 	if (e->less)
 	{
 		while (i < len)
-		{
-			buf[buf_len + i] = ' ';
-			i++;
-		}
+			buf[buf_len + i++] = ' ';
 	}
 	else
 	{
@@ -47,27 +44,27 @@ static int	width(t_spe *e, char *buf)
 	return (i);
 }
 
-static int	precision(t_spe *e, char *buf, int buf_len)
+static int	precision(t_spe *e, char *buf)
 {
 	int	i;
 	int	j;
-	char	*s;
 	int	pre;
 
-	s =  e->s;
 	i = 0;
 	j = 0;
-	pre = e->precision - (ft_strlen(s) + buf_len);
-	buf += buf_len;
+	pre = e->precision - ft_strlen(e->s);
 	if (e->precision > 0 && pre > 0)
 	{
-		if (s[0] == '-')
-			buf[i++] = s[j++];
+		if (e->s[0] == '-')
+		{
+			pre++;
+			buf[i++] = e->s[j++];
+		}
 		while(pre-- > 0)
 			buf[i++] = '0';
 	}
-	while (s[j])
-		buf[i++] = s[j++];
+	while (e->s[j])
+		buf[i++] = e->s[j++];
 	return (i);
 }
 
@@ -80,8 +77,8 @@ int	crave(t_spe *start)
 	{
 		i = 0;
 		ft_bzero(buf, 4096);
-		i += flags(start, &buf[i]);
-		i += precision(start, buf, i);
+		i += flags(start, buf);
+		i += precision(start, &buf[i]);
 		if (start->width > 0)
 			i += width(start, buf);
 		free(start->s);

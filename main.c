@@ -16,8 +16,8 @@
 int		main(void)
 {
 	setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("{ %-k } "));
-	printf("|retour ft : %d|\n", ft_printf("{ % }"));
+	printf("|retour pf : %d|\n", printf("%+20.5d", 42));
+	printf("|retour ft : %d|\n", ft_printf("%+20.5d", 42));
 	//ft_printf("%d\n", 20);
 	return (0);
 }

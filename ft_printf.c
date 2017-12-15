@@ -80,8 +80,9 @@ int				ft_printf(const char *format, ...)
 	ret = print_str(format, start);
 	/*while (start)
 	{
-		printf("specifier\t-> %c\n", start->specifier);
+		printf("\nspecifier\t-> %c\n", start->specifier);
 		printf("conv\t\t-> %s\n", start->conv);
+		printf("+\t\t-> %s\n", start->conv);
 		printf("width\t\t-> %ld\n", start->width);
 		printf("precision\t-> %ld\n", start->precision);
 		printf("str\t\t-> %s\n", start->s);

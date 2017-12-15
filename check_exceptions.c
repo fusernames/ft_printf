@@ -12,7 +12,39 @@
 
 #include "libftprintf.h"
 
-static int	check_flags(t_spe *elem)
+static void	flags_vs_flags(t_spe *elem)
+{
+	if (elem->precision > -1)
+		elem->zero = 0;
+	if (elem->plus)
+		elem->space = 0;
+	if (elem->less)
+		elem->zero = 0;
+	if (elem->width > 0 && elem->zero)
+	{
+		elem->precision = elem->width;
+		elem->width = 0;
+		elem->zero = 0;
+	}
+}
+
+static void	flags_vs_str(t_spe *elem)
+{
+	char	c;
+
+	c = elem->specifier;
+	if (elem->s[0] == '-')
+	{
+		elem->plus = 0;
+		elem->space = 0;
+	}
+	if (!ft_strcmp("0", elem->s))
+		elem->hash = 0;
+	if (c == 'p' && ft_strcmp(elem->s, "(nil)"))
+		elem->hash = 0;
+}
+
+static void	flags_vs_specifiers(t_spe *elem)
 {
 	char	c;
 	c = elem->specifier;
@@ -28,35 +60,22 @@ static int	check_flags(t_spe *elem)
 		elem->plus = 0;
 		elem->zero = 0;
 		elem->space = 0;
-		elem->precision = -1;
+		if (c != 'S' && c != 's')
+			elem->precision = -1;
 		if (c != 'p' || !ft_strcmp(elem->s, "(nil)"))
 			elem->hash = 0;
 		else
 			elem->hash = 1;
 	}
-	if (elem->plus)
-		elem->space = 0;
-	if (elem->less)
-		elem->zero = 0;
-	if (elem->width > 0 && elem->zero)
-	{
-		elem->precision = elem->width;
-		elem->width = 0;
-		elem->zero = 0;
-	}
-	if (elem->s[0] == '-')
-	{
-		elem->plus = 0;
-		elem->space = 0;
-	}
-	return (1);
 }
 
 int			check_exceptions(t_spe *start)
 {
 	while (start)
 	{
-		check_flags(start);
+		flags_vs_flags(start);
+		flags_vs_specifiers(start);
+		flags_vs_str(start);
 		//check_specifier(start);
 		start = start->next;
 	}
