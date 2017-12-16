@@ -16,7 +16,8 @@ int		is_specifier(int c)
 {
 	return (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'o' ||
 			c == 'X' || c == 'x' || c == 'f' || c == 'p' ||
-			c == 'c' || c == 's' || c == 'S' || c == 'C');
+			c == 'c' || c == 's' || c == 'S' || c == 'C' ||
+			c == 'U' || c == 'O');
 }
 
 static int		is_flag(int c)
@@ -69,6 +70,7 @@ static int		new_elem(const char *format, t_spe **start, va_list *ap)
 	if (*format == '.')
 	{
 		format++;
+		elem->precision = 0;
 		if (ft_isdigit(*format))
 		{
 			elem->precision = atoi(format);

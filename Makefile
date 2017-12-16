@@ -34,7 +34,8 @@ SRC			=	\
 	ft/ft_strdup.c \
 	ft/ft_strlen.c \
 	ft/ft_strtolower.c \
-	ft/ft_getchar.c
+	ft/ft_getchar.c \
+	ft/ft_strisspace.c
 OBJ			=	$(SRC:%.c=obj/%.o)
 
 all: $(NAME)

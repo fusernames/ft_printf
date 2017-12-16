@@ -39,7 +39,7 @@ static int	print_str(const char *format, t_spe *start)
 			c = start->specifier;
 			while (start->s[j])
 				write(1, &start->s[j++], 1);
-			if (j == 0 && (c == 'c' || c == 'C'))
+			if ((c == 'c' || c == 'C') && ft_strisspace(start->s))
 			{
 				write(1, &start->s[j], 1);
 				ret++;
@@ -78,8 +78,7 @@ int				ft_printf(const char *format, ...)
 	check_exceptions(start);
 	crave(start);
 	ret = print_str(format, start);
-	/*
-	while (start)
+	/*while (start)
 	{
 		printf("\nspecifier\t-> %c\n", start->specifier);
 		printf("conv\t\t-> %s\n", start->conv);
@@ -89,8 +88,7 @@ int				ft_printf(const char *format, ...)
 		printf("str\t\t-> %s\n", start->s);
 		printf("\n");
 		start = start->next;
-	}
-	*/
+	}*/
 	va_end(ap);
 	lst_del(start);
 	return (ret);

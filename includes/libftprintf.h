@@ -64,5 +64,6 @@ char			*ft_strdup(const char *s);
 size_t			ft_strlen(const char *s);
 char			*ft_strtolower(char *str);
 char			*ft_getchar(char c);
+int				ft_strisspace(const char *str);
 
 #endif
