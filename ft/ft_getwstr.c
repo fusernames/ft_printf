@@ -12,11 +12,36 @@
 
 #include "libftprintf.h"
 
-char	*ft_getwchar(wchar_t c)
+static void	check_mbcurmax(wchar_t c, t_spe *e)
+{
+	if (c < 0)
+		e->error = 1;
+	if (c >= 128 && MB_CUR_MAX < 2)
+		e->error = 1;
+	if (c >= 2048 && MB_CUR_MAX < 3)
+		e->error = 1;
+	if (c >= 65536 && MB_CUR_MAX < 4)
+		e->error = 1;
+}
+
+static int		wcharlen(wchar_t c)
+{	
+	if (c <= 127)
+		return (1);
+	else if (c <= 2047)
+		return (2);
+	else if (c <= 65535)
+		return (3);
+	else
+		return (4);
+}
+
+char			*ft_getwchar(wchar_t c, t_spe *e)
 {
 	char	*ret;
 	
-	if (c < 0 || (ret = malloc(5)) == NULL)
+	check_mbcurmax(c, e);
+	if ((ret = malloc(5)) == NULL)
 		return (NULL);
 	ft_bzero(ret, 5);
 	if (c <= 127)
@@ -42,22 +67,29 @@ char	*ft_getwchar(wchar_t c)
 	return (ret);
 }
 
-char	*ft_getwstr(wchar_t *str)
+char			*ft_getwstr(wchar_t *str, t_spe *e)
 {
 	char	 	*ret;
 	char		*wc;
 	int				i;
 	int				j;
-
+	
 	i = 0;
 	if ((ret = malloc(ft_strlen((char *)str) * 4 + 1)) == NULL)
 		return (NULL);
 	while (*str)
 	{
+		if (e->precision > -1 && wcharlen(*str) + i > e->precision)
+		{
+			if (e->precision - i > 0)
+				check_mbcurmax(*str, e);
+			break ;
+		}
+		check_mbcurmax(*str, e);
 		j = 0;
-		if ((wc = ft_getwchar(*str)) == NULL)
+		if ((wc = ft_getwchar(*str, e)) == NULL)
 			return (NULL);
-		while (wc[j])
+		while (wc && wc[j])
 			ret[i++] = wc[j++];
 		free(wc);
 		str++;

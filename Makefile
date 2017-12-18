@@ -16,11 +16,11 @@ FLAGS		=	-Wall -Wextra
 INCLUDES	=	includes
 SRC			=	\
 	ft_printf.c \
+	struct_manager.c \
 	parser.c \
 	parser_getstr.c \
 	check_exceptions.c \
-	crave.c \
-	struct_manager.c \
+	print_specifier.c \
 	ft/ft_itoa_base.c \
 	ft/ft_itoa_base_un.c \
 	ft/ft_getwstr.c \
@@ -35,7 +35,9 @@ SRC			=	\
 	ft/ft_strlen.c \
 	ft/ft_strtolower.c \
 	ft/ft_getchar.c \
-	ft/ft_strisspace.c
+	ft/ft_strisspace.c \
+	ft/ft_putstr.c \
+	ft/ft_putchar.c
 OBJ			=	$(SRC:%.c=obj/%.o)
 
 all: $(NAME)

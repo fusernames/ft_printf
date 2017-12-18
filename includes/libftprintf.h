@@ -21,17 +21,16 @@
 # include <wchar.h>
 # include <stdint.h>
 
-# define LLONG_MIN 9223372036854775807
-
 typedef struct	s_spe
 {
-	char				specifier;
+	char				spe;
 	char				conv[3];
 	int					zero;
 	int					hash;
 	int					space;
 	int					plus;
-	int					less;
+	int					minus;
+	int				error;
 	long				width;
 	long				precision;
 	char				*s;
@@ -45,13 +44,14 @@ int				check_exceptions(t_spe *start);
 int				crave(t_spe *start);
 int				lst_del(t_spe *start);
 t_spe			*init_elem(void);
+int				print_specifier(t_spe *e);
 
 int				is_specifier(int c);
 
 char			*ft_itoa_base(long long n, int base);
 char			*ft_itoa_base_un(unsigned long long n, int base);
-char			*ft_getwstr(wchar_t *str);
-char			*ft_getwchar(wchar_t c);
+char			*ft_getwstr(wchar_t *str, t_spe *e);
+char			*ft_getwchar(wchar_t c, t_spe *e);
 
 int				ft_atoi(const char *s);
 void			ft_bzero(void *s, size_t n);
@@ -65,5 +65,7 @@ size_t			ft_strlen(const char *s);
 char			*ft_strtolower(char *str);
 char			*ft_getchar(char c);
 int				ft_strisspace(const char *str);
+int				ft_putstr(const char *s);
+int				ft_putchar(int c);
 
 #endif

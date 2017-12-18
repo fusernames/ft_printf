@@ -19,12 +19,10 @@
  * 4. Produire la str finale
  */
 
-static int	print_str(const char *format, t_spe *start)
+static int		print_str(const char *format, t_spe *start)
 {
 	int		i;
-	int		j;
 	int		ret;
-	char	c;
 
 	i = 0;
 	ret = 0;
@@ -32,32 +30,21 @@ static int	print_str(const char *format, t_spe *start)
 	{
 		if (format[i] == '%' && format[i + 1] != '%')
 		{
-			j = 0;
+			if (start->error)
+				return (-1);
 			while (!is_specifier(format[i]) && format[i])
 				i++;
 			i++;
-			c = start->specifier;
-			while (start->s[j])
-				write(1, &start->s[j++], 1);
-			if ((c == 'c' || c == 'C') && ft_strisspace(start->s))
-			{
-				write(1, &start->s[j], 1);
-				ret++;
-			}
-			ret += j;
+			ret += print_specifier(start);
 			start = start->next;
 		}
 		else if (format[i] == '%' && format[i + 1] == '%')
 		{
 			i++;
-			write(1, &format[i++], 1);
-			ret++;
+			ret += ft_putchar(format[i++]);
 		}
 		else if (format[i])
-		{
-			write(1, &format[i++], 1);
-			ret++;
-		}
+			ret += ft_putchar(format[i++]);
 	}
 	return(ret);
 }
@@ -75,20 +62,20 @@ int				ft_printf(const char *format, ...)
 		lst_del(start);
 		return (-1);
 	}
-	check_exceptions(start);
-	crave(start);
-	ret = print_str(format, start);
 	/*while (start)
 	{
-		printf("\nspecifier\t-> %c\n", start->specifier);
+		printf("\nspecifier\t-> %c\n", start->spe);
 		printf("conv\t\t-> %s\n", start->conv);
 		printf("+\t\t-> %d\n", start->plus);
 		printf("width\t\t-> %ld\n", start->width);
 		printf("precision\t-> %ld\n", start->precision);
 		printf("str\t\t-> %s\n", start->s);
+		printf("error\t\t-> %d\n", start->error);
 		printf("\n");
 		start = start->next;
 	}*/
+	check_exceptions(start);
+	ret = print_str(format, start);
 	va_end(ap);
 	lst_del(start);
 	return (ret);

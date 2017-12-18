@@ -38,7 +38,7 @@ static int	handle_unsigned(va_list ap, t_spe *elem)
 	unsigned long long	n;
 
 	conv = elem->conv;
-	c = elem->specifier;
+	c = elem->spe;
 	if (!ft_strcmp(conv, "hh"))
 		n = (unsigned char)va_arg(ap, int);
 	else if (!ft_strcmp(conv, "h"))
@@ -66,7 +66,7 @@ static int	handle_int(va_list ap, t_spe *elem)
 	long long	n;
 
 	conv = elem->conv;
-	c = elem->specifier;
+	c = elem->spe;
 	if (!ft_strcmp(conv, "hh"))
 		n = (char)va_arg(ap, int);
 	else if (!ft_strcmp(conv, "h"))
@@ -92,24 +92,24 @@ static int	handle_char(va_list ap, t_spe *elem)
 	char	*conv;
 	char	c;
 
-	c = elem->specifier;
+	c = elem->spe;
 	conv = elem->conv;
 	if (c == 'c' && !conv[0])
 		elem->s = ft_getchar((char)va_arg(ap, int));
 	else if (c == 's' && !conv[0])
 	{
 		if ((elem->s = ft_strdup(va_arg(ap, char *))) == NULL)
-			elem->s = ft_strdup("(null)");
+			return (1);
 	}
 	else if (c == 'C' || (c == 'c' && !ft_strcmp(conv, "l")))
 	{
-		if((elem->s = ft_getwchar(va_arg(ap, wchar_t))) == NULL)
-			return (-1);
+		if ((elem->s = ft_getwchar(va_arg(ap, wchar_t), elem)) == NULL)
+			return (1);
 	}
 	else if (c == 'S' || (c == 's' && !ft_strcmp(conv, "l")))
 	{
-		if((elem->s = ft_getwstr(va_arg(ap, wchar_t *))) == NULL)
-			return (-1);
+		if((elem->s = ft_getwstr(va_arg(ap, wchar_t *), elem)) == NULL)
+			return (1);
 	}
 	if (!elem->s)
 		return (-1);
@@ -120,7 +120,7 @@ int			parser_getstr(va_list ap, t_spe *elem)
 {
 	char				c;
 
-	c = elem->specifier;
+	c = elem->spe;
 	if (c == 'x' || c == 'X' || c == 'u' || c == 'U' || c == 'o'||
 			c == 'O' || c == 'p')
 	{

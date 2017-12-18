@@ -47,7 +47,7 @@ static int		new_elem(const char *format, t_spe **start, va_list *ap)
 		if (*format == ' ')
 			elem->space = 1;
 		else if (*format == '-')
-			elem->less = 1;
+			elem->minus = 1;
 		else if (*format == '+')
 			elem->plus = 1;
 		else if (*format == '#')
@@ -97,7 +97,7 @@ static int		new_elem(const char *format, t_spe **start, va_list *ap)
 	}
 	elem->conv[i] = '\0';
 	if (is_specifier(*format))
-		elem->specifier = *format;
+		elem->spe = *format;
 	else
 		return (-1);
 	if (*start == NULL)

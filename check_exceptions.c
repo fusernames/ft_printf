@@ -18,7 +18,7 @@ static void	flags_vs_flags(t_spe *elem)
 		elem->zero = 0;
 	if (elem->plus)
 		elem->space = 0;
-	if (elem->less)
+	if (elem->minus)
 		elem->zero = 0;
 }
 
@@ -26,22 +26,22 @@ static void	flags_vs_str(t_spe *elem)
 {
 	char	c;
 
-	c = elem->specifier;
-	if (elem->s[0] == '-')
+	c = elem->spe;
+	if (elem->s && elem->s[0] == '-')
 	{
 		elem->plus = 0;
 		elem->space = 0;
 	}
 	if (!ft_strcmp("0", elem->s))
 		elem->hash = 0;
-	if (c == 'p' && ft_strcmp(elem->s, "(nil)"))
+	if (c == 'p' && !elem->s)
 		elem->hash = 0;
 }
 
 static void	flags_vs_specifiers(t_spe *elem)
 {
 	char	c;
-	c = elem->specifier;
+	c = elem->spe;
 	if (c == 'x' || c == 'X' || c == 'o')
 	{
 		elem->space = 0;
@@ -54,9 +54,8 @@ static void	flags_vs_specifiers(t_spe *elem)
 		elem->plus = 0;
 		elem->zero = 0;
 		elem->space = 0;
-		if (c != 'S' && c != 's')
-			elem->precision = -1;
-		if (c != 'p' || !ft_strcmp(elem->s, "(nil)"))
+		elem->precision = -1;
+		if (c != 'p' || !elem->s)
 			elem->hash = 0;
 		else
 			elem->hash = 1;
