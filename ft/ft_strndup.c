@@ -12,14 +12,29 @@
 
 #include "libftprintf.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strndup(const char *s, int n)
 {
 	char	*dup;
+	int	i;
 
-	if (s == NULL)
+	i = 0;
+	if (s == NULL && (n < 6 && n != -1))
+		n = 0;
+	else if (s == NULL)
+	{
+		dup = malloc(7);
+		ft_strcpy(dup, "(null)");
+		return (dup);
+	}
+	else if (n == -1)
+		n = ft_strlen(s);
+	if ((dup = malloc(n + 1)) == NULL)
 		return (NULL);
-	if ((dup = (char *)malloc((ft_strlen(s) + 1))) == NULL)
-		return (NULL);
-	ft_strcpy(dup, s);
+	while (s && s[i] && i < n)
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
 	return (dup);
 }

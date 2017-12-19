@@ -82,13 +82,6 @@ static int	print_s(t_spe *e, char *s)
 	int	len;
 
 	i = 0;
-	if (s == NULL)
-	{
-		if (e->precision >= 6 || e->precision == -1)
-			return (ft_putstr("(null)"));
-		else
-			return (0);
-	}
 	len = ft_strlen(s);
 	if (e->precision > -1 && (e->spe == 's' || e->spe == 'S'))
 		len = e->precision;

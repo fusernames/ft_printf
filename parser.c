@@ -25,15 +25,87 @@ static int		is_flag(int c)
 	return (c == ' ' || c == '-' || c == '+' || c == '#' || c == '0');
 }
 
+static void	parse_flags(char **fmt, t_spe *e)
+{
+	while(is_flag(**fmt))
+	{
+		if (**fmt == ' ')
+			e->space = 1;
+		else if (**fmt == '-')
+			e->minus = 1;
+		else if (**fmt == '+')
+			e->plus = 1;
+		else if (**fmt == '#')
+			e->hash = 1;
+		else if (**fmt == '0')
+			e->zero = 1;
+		(*fmt)++;
+	}
+}
 
-static int		new_elem(const char *format, t_spe **start, va_list *ap)
+static void	parse_width(char **fmt, t_spe *e, va_list *ap)
+{
+	if (ft_isdigit(**fmt))
+	{
+		e->width = ft_atoi(*fmt);
+		while (ft_isdigit(**fmt))
+			(*fmt)++;
+	}
+	else if(**fmt == '*')
+	{
+		if ((e->width = va_arg(*ap, int)) < 0)
+			e->width = 0;
+		(*fmt)++;
+	}
+}
+
+static void	parse_precision(char **fmt, t_spe *e, va_list *ap)
+{
+	if (**fmt == '.')
+	{
+		(*fmt)++;
+		e->precision = 0;
+		if (ft_isdigit(**fmt))
+		{
+			e->precision = atoi(*fmt);
+			while (ft_isdigit(**fmt))
+				(*fmt)++;
+		}
+		else if(**fmt == '*')
+		{
+			if ((e->precision = va_arg(*ap, int)) < -1)
+				e->precision = -1;
+			(*fmt)++;
+		}
+	}
+}
+
+static int	parse_spe(char **fmt, t_spe *e)
+{
+	int	i = 0;
+
+	while (**fmt && ft_isalpha(**fmt) && !is_specifier(**fmt))
+	{
+		if (i == 2)
+			return (0);
+		e->conv[i++] = **fmt;
+		(*fmt)++;
+	}
+	e->conv[i] = '\0';
+	if (is_specifier(**fmt))
+		e->spe = **fmt;
+	else
+		return (0);
+	return (1);
+}
+
+t_spe		*parser(char *fmt, va_list *ap, t_spe **start)
 {
 	t_spe	*elem;
 	t_spe	*last;
-	int		i;
-
-	i = 0;
+	
 	elem = *start;
+	last = NULL;
 	while (elem)
 	{
 		if (elem->next == NULL)
@@ -41,87 +113,19 @@ static int		new_elem(const char *format, t_spe **start, va_list *ap)
 		elem = elem->next;
 	}
 	if (!(elem = init_elem()))
-		return (-1);
-	while(is_flag(*format))
+		return (NULL);
+	parse_flags(&fmt, elem);
+	parse_width(&fmt, elem, ap);
+	parse_precision(&fmt, elem, ap);
+	if (!parse_spe(&fmt, elem))
 	{
-		if (*format == ' ')
-			elem->space = 1;
-		else if (*format == '-')
-			elem->minus = 1;
-		else if (*format == '+')
-			elem->plus = 1;
-		else if (*format == '#')
-			elem->hash = 1;
-		else if (*format == '0')
-			elem->zero = 1;
-		format++;
+		free(elem);
+		return (NULL);
 	}
-	if (ft_isdigit(*format))
-	{
-		elem->width = ft_atoi(format);
-		while (ft_isdigit(*format))
-			format++;
-	}
-	else if(*format == '*')
-	{
-		elem->width = va_arg(*ap, long long);
-		format++;
-	}
-	if (*format == '.')
-	{
-		format++;
-		elem->precision = 0;
-		if (ft_isdigit(*format))
-		{
-			elem->precision = atoi(format);
-			while (ft_isdigit(*format))
-				format++;
-		}
-		else if(*format == '*')
-		{
-			elem->precision = va_arg(*ap, long long);
-			format++;
-		}
-	}
-	while (isdigit(*format))
-		format++;
-	while (ft_isalpha(*format) && !is_specifier(*format))
-	{
-		if (i == 2)
-		{
-			free(elem);
-			return (-1);
-		}
-		elem->conv[i++] = *format;
-		format++;
-	}
-	elem->conv[i] = '\0';
-	if (is_specifier(*format))
-		elem->spe = *format;
-	else
-		return (-1);
+	parse_str(elem, *ap);
 	if (*start == NULL)
 		*start = elem;
-	else
+	if (last)
 		last->next = elem;
-	if (parser_getstr(*ap, elem) == -1)
-		return (-1);
-	return (1);
-}
-
-int			parser(const char *format, t_spe **start, va_list *ap)
-{
-	int		i;
-
-	i = 0;
-	while(format[i])
-	{
-		if (format[i] == '%' && format[i + 1] != '%')
-			if (new_elem(&format[i + 1], start, ap) == -1)
-				return (-1);
-		if (format[i] == '%' && format[i + 1] == '%')
-			i++;
-		i++;
-	}
-	return (1);
+	return (elem);
 }

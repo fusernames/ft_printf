@@ -31,15 +31,15 @@ typedef struct	s_spe
 	int					plus;
 	int					minus;
 	int				error;
-	long				width;
-	long				precision;
+	long long int			width;
+	long long int			precision;
 	char				*s;
 	struct s_spe		*next;
 }				t_spe;
 
 int				ft_printf(const char *format, ...);
-int				parser(const char *format, t_spe **start, va_list *ap);
-int				parser_getstr(va_list ap, t_spe *start);
+t_spe			*parser(char *fmt, va_list *ap, t_spe **start);
+int				parse_str(t_spe *start, va_list ap);
 int				check_exceptions(t_spe *start);
 int				crave(t_spe *start);
 int				lst_del(t_spe *start);
@@ -61,6 +61,7 @@ void			*ft_memmove(void *dest, const void *src, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strdup(const char *s);
+char			*ft_strndup(const char *s, int n);
 size_t			ft_strlen(const char *s);
 char			*ft_strtolower(char *str);
 char			*ft_getchar(char c);

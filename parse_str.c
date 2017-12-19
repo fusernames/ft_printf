@@ -98,7 +98,7 @@ static int	handle_char(va_list ap, t_spe *elem)
 		elem->s = ft_getchar((char)va_arg(ap, int));
 	else if (c == 's' && !conv[0])
 	{
-		if ((elem->s = ft_strdup(va_arg(ap, char *))) == NULL)
+		if ((elem->s = ft_strndup(va_arg(ap, char *), elem->precision)) == NULL)
 			return (1);
 	}
 	else if (c == 'C' || (c == 'c' && !ft_strcmp(conv, "l")))
@@ -116,7 +116,7 @@ static int	handle_char(va_list ap, t_spe *elem)
 	return (1);
 }
 
-int			parser_getstr(va_list ap, t_spe *elem)
+int			parse_str(t_spe *elem, va_list ap)
 {
 	char				c;
 

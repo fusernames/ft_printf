@@ -34,7 +34,7 @@ static void	flags_vs_str(t_spe *elem)
 	}
 	if (!ft_strcmp("0", elem->s))
 		elem->hash = 0;
-	if (c == 'p' && !elem->s)
+	if (c == 'p' && !ft_strcmp("(nil)", elem->s))
 		elem->hash = 0;
 }
 

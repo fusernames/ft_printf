@@ -18,7 +18,7 @@ SRC			=	\
 	ft_printf.c \
 	struct_manager.c \
 	parser.c \
-	parser_getstr.c \
+	parse_str.c \
 	check_exceptions.c \
 	print_specifier.c \
 	ft/ft_itoa_base.c \
@@ -32,6 +32,7 @@ SRC			=	\
 	ft/ft_strcmp.c \
 	ft/ft_strcpy.c \
 	ft/ft_strdup.c \
+	ft/ft_strndup.c \
 	ft/ft_strlen.c \
 	ft/ft_strtolower.c \
 	ft/ft_getchar.c \

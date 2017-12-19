@@ -15,14 +15,8 @@
 
 int		main(void)
 {
-	int	s[4];
-
-	s[0] = 0x53;
-	s[1] = 0x3abc;
-	s[2] = 0x81000;
-	s[3] = '\0';
-	//setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("cc %9.6ls AH %S", s, (wchar_t *)65));
-	printf("|retour ft : %d|\n", ft_printf("cc %9.6ls AH %S", s, (wchar_t *)65));
+	setlocale(LC_ALL, "");
+	printf("|retour pf : %d|\n", printf("%10.2p", 0));
+	printf("|retour pf : %d|\n", ft_printf("%10.2p", 0));
 	return (0);
 }

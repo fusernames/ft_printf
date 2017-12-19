@@ -19,32 +19,35 @@
  * 4. Produire la str finale
  */
 
-static int		print_str(const char *format, t_spe *start)
+static int		print_str(char *fmt, va_list *ap, t_spe **start)
 {
 	int		i;
 	int		ret;
+	t_spe		*elem;
 
 	i = 0;
 	ret = 0;
-	while (format[i])
+	while (fmt[i])
 	{
-		if (format[i] == '%' && format[i + 1] != '%')
+		if (fmt[i] == '%' && fmt[i + 1] != '%')
 		{
-			if (start->error)
+			if ((elem = parser(&fmt[i + 1], ap, start)) == NULL)
 				return (-1);
-			while (!is_specifier(format[i]) && format[i])
+			check_exceptions(elem);
+			if (elem->error)
+				return (-1);
+			while (!is_specifier(fmt[i]) && fmt[i])
 				i++;
 			i++;
-			ret += print_specifier(start);
-			start = start->next;
+			ret += print_specifier(elem);
 		}
-		else if (format[i] == '%' && format[i + 1] == '%')
+		else if (fmt[i] == '%' && fmt[i + 1] == '%')
 		{
 			i++;
-			ret += ft_putchar(format[i++]);
+			ret += ft_putchar(fmt[i++]);
 		}
-		else if (format[i])
-			ret += ft_putchar(format[i++]);
+		else if (fmt[i])
+			ret += ft_putchar(fmt[i++]);
 	}
 	return(ret);
 }
@@ -57,11 +60,10 @@ int				ft_printf(const char *format, ...)
 
 	start = NULL;
 	va_start(ap, format);
-	if (parser(format, &start, &ap) == -1)
-	{
-		lst_del(start);
-		return (-1);
-	}
+	ret = print_str((char *)format, &ap, &start);
+	va_end(ap);
+	lst_del(start);
+	return (ret);
 	/*while (start)
 	{
 		printf("\nspecifier\t-> %c\n", start->spe);
@@ -74,9 +76,4 @@ int				ft_printf(const char *format, ...)
 		printf("\n");
 		start = start->next;
 	}*/
-	check_exceptions(start);
-	ret = print_str(format, start);
-	va_end(ap);
-	lst_del(start);
-	return (ret);
 }
