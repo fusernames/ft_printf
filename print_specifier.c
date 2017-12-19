@@ -67,6 +67,8 @@ static int	print_precision(t_spe *e, char *s, char *buf)
 
 	i = 0;
 	len = e->precision - ft_strlen(s);
+	if ((e->spe == 'o' || e->spe == 'O') && e->hash == 1)
+		len--;
 	if (len > 0 && e->spe != 's' && e->spe != 'S')
 	{
 		while (i < len)
@@ -109,7 +111,7 @@ int			print_specifier(t_spe *e)
 		i += print_width(e, flags, s, buf);
 	if (e->precision > 0 && e->spe != 's' && e->spe != 'S')
 		i += print_precision(e, s, buf);
-	if (e->precision || ft_strcmp(s, "0") || e->spe == 'o')
+	if (e->precision || ft_strcmp(s, "0") || e->spe == 'o' || e->spe == 'O')
 		i += print_s(e, s);
 	if (e->width > 0 && e->minus)
 		i += print_width(e, flags, s, buf);

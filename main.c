@@ -15,8 +15,8 @@
 
 int		main(void)
 {
-	setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("%10.2p", 0));
-	printf("|retour pf : %d|\n", ft_printf("%10.2p", 0));
+	//setlocale(LC_ALL, "");
+	printf("|retour pf : %d|\n", printf("toto %###.0o%#.o et %#.1o !", 0, 0, 0));
+	printf("|retour pf : %d|\n", ft_printf("toto %###.0O%#.O et %#.1O !", 0, 0, 0));
 	return (0);
 }
