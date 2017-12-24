@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 18:12:25 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:56:31 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/24 11:47:53 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static int	handle_char(va_list ap, t_spe *elem)
 	else if (c == 's' && !conv[0])
 	{
 		if ((elem->s = ft_strndup(va_arg(ap, char *), elem->precision)) == NULL)
-			return (1);
+			elem->s = ft_strndup("(null)", elem->precision);
 	}
 	else if (c == 'C' || (c == 'c' && !ft_strcmp(conv, "l")))
 	{
@@ -108,8 +108,8 @@ static int	handle_char(va_list ap, t_spe *elem)
 	}
 	else if (c == 'S' || (c == 's' && !ft_strcmp(conv, "l")))
 	{
-		if((elem->s = ft_getwstr(va_arg(ap, wchar_t *), elem)) == NULL)
-			return (1);
+		if ((elem->s = ft_getwstr(va_arg(ap, wchar_t *), elem)) == NULL)
+			elem->s = ft_strndup("(null)", elem->precision);
 	}
 	if (!elem->s)
 		return (-1);

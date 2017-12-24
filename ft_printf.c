@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:24:10 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:43:58 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/24 12:06:39 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int		print_str(char *fmt, va_list *ap, t_spe **start)
 
 	i = 0;
 	ret = 0;
+	elem = NULL;
 	while (fmt[i])
 	{
 		if (fmt[i] == '%' && fmt[i + 1] != '%')

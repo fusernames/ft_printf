@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/01 18:19:31 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:55:23 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/24 12:04:45 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 int		main(void)
 {
-	//setlocale(LC_ALL, "");
-	printf("|retour pf : %d|\n", printf("toto %###.0o%#.o et %#.1o !", 0, 0, 0));
-	printf("|retour pf : %d|\n", ft_printf("toto %###.0O%#.O et %#.1O !", 0, 0, 0));
+	int	s[5] = {'S', 4660, 'u', 'a', 0};
+	setlocale(LC_ALL, "");
+	//printf("|retour pf : %d|\n", printf("%8C et coco %C %lc", 3250, 0x11ffff, 'a'));
+	//printf("|retour ft : %d|\n", ft_printf("%8C et coco %C %lc", 3250, 0x11ffff, 'a'));
+	printf("|retour pf : %d|\n", printf("hey %s %.2ls", "salut", s));
+	printf("|retour ft : %d|\n", ft_printf("hey %s %.2ls", "salut", s));
 	return (0);
 }
