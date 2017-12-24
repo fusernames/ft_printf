@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 18:12:25 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 11:47:53 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/24 15:04:43 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ static char	*create_str(char c, void *n)
 		return (ft_itoa_base_un(*((unsigned long long*)n), 16));
 	if (c == 'x' || c == 'p')
 	{
-		if (c == 'p' && *((unsigned long long*)n) == 0)
-			return(ft_strdup("(nil)"));
 		return (ft_strtolower(ft_itoa_base_un(*((unsigned long long*)n), 16)));
 	}
 	if (c == 'o' || c == 'O')
@@ -98,7 +96,8 @@ static int	handle_char(va_list ap, t_spe *elem)
 		elem->s = ft_getchar((char)va_arg(ap, int));
 	else if (c == 's' && !conv[0])
 	{
-		if ((elem->s = ft_strndup(va_arg(ap, char *), elem->precision)) == NULL)
+		if ((elem->s = ft_strndup(va_arg(ap, char *),
+						elem->precision)) == NULL)
 			elem->s = ft_strndup("(null)", elem->precision);
 	}
 	else if (c == 'C' || (c == 'c' && !ft_strcmp(conv, "l")))
@@ -121,7 +120,7 @@ int			parse_str(t_spe *elem, va_list ap)
 	char				c;
 
 	c = elem->spe;
-	if (c == 'x' || c == 'X' || c == 'u' || c == 'U' || c == 'o'||
+	if (c == 'x' || c == 'X' || c == 'u' || c == 'U' || c == 'o' ||
 			c == 'O' || c == 'p')
 	{
 		if (handle_unsigned(ap, elem) == -1)
@@ -135,7 +134,7 @@ int			parse_str(t_spe *elem, va_list ap)
 	else if (c == 's' || c == 'S' || c == 'c' || c == 'C')
 	{
 		if (handle_char(ap, elem) == -1)
-			return(-1);
+			return (-1);
 	}
 	else
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:10:30 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:28:07 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/24 15:06:02 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ t_spe	*init_elem(void)
 	elem->s = NULL;
 	elem->next = NULL;
 	ft_bzero(elem->conv, 3);
-
 	return (elem);
 }
 
 int		lst_del(t_spe *start)
 {
 	t_spe *tmp;
+
 	while (start)
 	{
 		if (start->s)

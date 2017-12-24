@@ -6,7 +6,7 @@
 #    By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:15:20 by alcaroff          #+#    #+#              #
-#    Updated: 2017/12/04 21:50:27 by alcaroff         ###   ########.fr        #
+#    Updated: 2017/12/24 14:51:32 by alcaroff         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC			=	\
 	parse_str.c \
 	check_exceptions.c \
 	print_specifier.c \
+	is.c \
 	ft/ft_itoa_base.c \
 	ft/ft_itoa_base_un.c \
 	ft/ft_getwstr.c \
@@ -28,7 +29,6 @@ SRC			=	\
 	ft/ft_bzero.c \
 	ft/ft_isalpha.c \
 	ft/ft_isdigit.c \
-	ft/ft_memmove.c \
 	ft/ft_strcmp.c \
 	ft/ft_strcpy.c \
 	ft/ft_strdup.c \

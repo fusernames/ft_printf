@@ -6,28 +6,15 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 19:38:37 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:40:35 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/24 15:45:18 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int		is_specifier(int c)
-{
-	return (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'o' ||
-			c == 'X' || c == 'x' || c == 'f' || c == 'p' ||
-			c == 'c' || c == 's' || c == 'S' || c == 'C' ||
-			c == 'U' || c == 'O');
-}
-
-static int		is_flag(int c)
-{
-	return (c == ' ' || c == '-' || c == '+' || c == '#' || c == '0');
-}
-
 static void	parse_flags(char **fmt, t_spe *e)
 {
-	while(is_flag(**fmt))
+	while (is_flag(**fmt))
 	{
 		if (**fmt == ' ')
 			e->space = 1;
@@ -51,7 +38,7 @@ static void	parse_width(char **fmt, t_spe *e, va_list *ap)
 		while (ft_isdigit(**fmt))
 			(*fmt)++;
 	}
-	else if(**fmt == '*')
+	else if (**fmt == '*')
 	{
 		if ((e->width = va_arg(*ap, int)) < 0)
 			e->width = 0;
@@ -71,7 +58,7 @@ static void	parse_precision(char **fmt, t_spe *e, va_list *ap)
 			while (ft_isdigit(**fmt))
 				(*fmt)++;
 		}
-		else if(**fmt == '*')
+		else if (**fmt == '*')
 		{
 			if ((e->precision = va_arg(*ap, int)) < -1)
 				e->precision = -1;
@@ -82,8 +69,9 @@ static void	parse_precision(char **fmt, t_spe *e, va_list *ap)
 
 static int	parse_spe(char **fmt, t_spe *e)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	while (**fmt && ft_isalpha(**fmt) && !is_specifier(**fmt))
 	{
 		if (i == 2)
@@ -99,33 +87,34 @@ static int	parse_spe(char **fmt, t_spe *e)
 	return (1);
 }
 
-t_spe		*parser(char *fmt, va_list *ap, t_spe **start)
+int			parser(char *fmt, va_list *ap, t_spe **start)
 {
 	t_spe	*elem;
 	t_spe	*last;
-	
+
 	elem = *start;
-	last = NULL;
-	while (elem)
+	while (*fmt)
 	{
-		if (elem->next == NULL)
+		if (*fmt == '%' && fmt[1] != '%')
+		{
+			fmt++;
+			if (!(elem = init_elem()))
+				return (-1);
+			if (*start == NULL)
+				*start = elem;
+			else
+				last->next = elem;
+			parse_flags(&fmt, elem);
+			parse_width(&fmt, elem, ap);
+			parse_precision(&fmt, elem, ap);
+			if (!parse_spe(&fmt, elem))
+				return (-1);
+			parse_str(elem, *ap);
 			last = elem;
-		elem = elem->next;
+		}
+		else if (*fmt == '%' && fmt[1] == '%')
+			fmt++;
+		fmt++;
 	}
-	if (!(elem = init_elem()))
-		return (NULL);
-	parse_flags(&fmt, elem);
-	parse_width(&fmt, elem, ap);
-	parse_precision(&fmt, elem, ap);
-	if (!parse_spe(&fmt, elem))
-	{
-		free(elem);
-		return (NULL);
-	}
-	parse_str(elem, *ap);
-	if (*start == NULL)
-		*start = elem;
-	if (last)
-		last->next = elem;
-	return (elem);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:25:58 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/11 19:17:38 by alcaroff         ###   ########.fr       */
+/*   Updated: 2017/12/24 14:52:40 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_spe
 }				t_spe;
 
 int				ft_printf(const char *format, ...);
-t_spe			*parser(char *fmt, va_list *ap, t_spe **start);
+int				parser(char *fmt, va_list *ap, t_spe **start);
 int				parse_str(t_spe *start, va_list ap);
 int				check_exceptions(t_spe *start);
 int				crave(t_spe *start);
@@ -47,6 +47,7 @@ t_spe			*init_elem(void);
 int				print_specifier(t_spe *e);
 
 int				is_specifier(int c);
+int				is_flag(int c);
 
 char			*ft_itoa_base(long long n, int base);
 char			*ft_itoa_base_un(unsigned long long n, int base);
@@ -57,7 +58,6 @@ int				ft_atoi(const char *s);
 void			ft_bzero(void *s, size_t n);
 int				ft_isalpha(int c);
 int				ft_isdigit(int c);
-void			*ft_memmove(void *dest, const void *src, size_t n);
 int				ft_strcmp(const char *s1, const char *s2);
 char			*ft_strcpy(char *dest, const char *src);
 char			*ft_strdup(const char *s);

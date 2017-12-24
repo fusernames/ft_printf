@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   is.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/11 16:05:57 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/11/12 15:46:30 by alcaroff         ###   ########.fr       */
+/*   Created: 2017/12/24 14:44:37 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/12/24 15:38:06 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+int		is_specifier(int c)
 {
-	size_t	i;
+	return (c == 'd' || c == 'D' || c == 'i' || c == 'u' || c == 'o' ||
+			c == 'X' || c == 'x' || c == 'f' || c == 'p' ||
+			c == 'c' || c == 's' || c == 'S' || c == 'C' ||
+			c == 'U' || c == 'O');
+}
 
-	i = 0;
-	if (n == 0)
-		return (dest);
-	if (src < dest)
-	{
-		while (n > 0)
-		{
-			n--;
-			((char*)dest)[n] = ((char*)src)[n];
-		}
-	}
-	else
-	{
-		while (i < n)
-		{
-			((char*)dest)[i] = ((char*)src)[i];
-			i++;
-		}
-	}
-	return (dest);
+int		is_flag(int c)
+{
+	return (c == ' ' || c == '-' || c == '+' || c == '#' || c == '0');
+}
+
+int		is_conv(int c)
+{
+	return (c == 'l' || c == 'z' || c == 'h' || c == 'j');
 }

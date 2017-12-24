@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_specifier.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/24 15:08:42 by alcaroff          #+#    #+#             */
+/*   Updated: 2017/12/24 15:19:46 by alcaroff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libftprintf.h"
 
 static int	print_flags(t_spe *e, char **s, char *buf, int print)
 {
 	char	c;
-	int	i;
+	int		i;
 
 	c = e->spe;
 	i = 0;
@@ -14,7 +26,7 @@ static int	print_flags(t_spe *e, char **s, char *buf, int print)
 	if (e->hash)
 	{
 		buf[i++] = '0';
-		if (c == 'x' || c  == 'p')
+		if (c == 'x' || c == 'p')
 			buf[i++] = 'x';
 		else if (e->spe == 'X')
 			buf[i++] = 'X';
@@ -26,34 +38,31 @@ static int	print_flags(t_spe *e, char **s, char *buf, int print)
 			(*s)++;
 	}
 	buf[i] = '\0';
-	if (print)
-		return (ft_putstr(buf));
-	else
-		return (i);
+	return (print ? ft_putstr(buf) : i);
 }
 
 static int	print_width(t_spe *e, int flags, char *s, char *buf)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
 	char	c;
-	int	s_len;
+	int		s_len;
 
 	i = 0;
 	c = ' ';
 	len = 0;
 	s_len = ft_strlen(s);
-	if (s && s[0] == '-' && (e->spe  == 'd' || e->spe == 'D' || e->spe == 'i'))
+	if (s && s[0] == '-' && (e->spe == 'd' || e->spe == 'D' || e->spe == 'i'))
 		len++;
 	if (e->precision > 0 && e->precision - s_len > 0)
 		len -= e->precision - s_len;
 	if ((len += e->width - (s_len + flags)) > 0)
 	{
-		if (s && e->s[0] == '\0' && (e->spe == 'c' || e->spe == 'C')) 
+		if (s && e->s[0] == '\0' && (e->spe == 'c' || e->spe == 'C'))
 			len--;
 		if (e->zero)
 			c = '0';
-		while(i < len)
+		while (i < len)
 			buf[i++] = c;
 	}
 	buf[i] = '\0';
@@ -75,7 +84,7 @@ static int	print_precision(t_spe *e, char *s, char *buf)
 			buf[i++] = '0';
 	}
 	buf[i] = '\0';
-	return (ft_putstr(buf));	
+	return (ft_putstr(buf));
 }
 
 static int	print_s(t_spe *e, char *s)
@@ -87,9 +96,9 @@ static int	print_s(t_spe *e, char *s)
 	len = ft_strlen(s);
 	if (e->precision > -1 && (e->spe == 's' || e->spe == 'S'))
 		len = e->precision;
-	if (s[i] == '\0' && (e->spe  == 'c' || e->spe  == 'C'))
+	if (s[i] == '\0' && (e->spe == 'c' || e->spe == 'C'))
 		ft_putchar(s[i++]);
-	while(i < len && s[i])
+	while (i < len && s[i])
 		ft_putchar(s[i++]);
 	return (i);
 }
