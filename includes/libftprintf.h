@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:25:58 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 14:52:40 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/16 12:23:03 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ typedef struct	s_spe
 	int					space;
 	int					plus;
 	int					minus;
-	int				error;
-	long long int			width;
-	long long int			precision;
+	int					error;
+	long long int		width;
+	long long int		precision;
 	char				*s;
 	struct s_spe		*next;
 }				t_spe;
@@ -48,6 +48,7 @@ int				print_specifier(t_spe *e);
 
 int				is_specifier(int c);
 int				is_flag(int c);
+int				is_conv(int c);
 
 char			*ft_itoa_base(long long n, int base);
 char			*ft_itoa_base_un(unsigned long long n, int base);

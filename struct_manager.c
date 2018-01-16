@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:10:30 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 15:06:02 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/16 12:02:50 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ t_spe	*init_elem(void)
 	elem->error = 0;
 	elem->s = NULL;
 	elem->next = NULL;
-	ft_bzero(elem->conv, 3);
 	return (elem);
 }
 

@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 19:38:37 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 15:45:18 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/16 14:17:53 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,16 +75,18 @@ static int	parse_spe(char **fmt, t_spe *e)
 	while (**fmt && ft_isalpha(**fmt) && !is_specifier(**fmt))
 	{
 		if (i == 2)
-			return (0);
+			return (1);
 		e->conv[i++] = **fmt;
 		(*fmt)++;
 	}
 	e->conv[i] = '\0';
-	if (is_specifier(**fmt))
-		e->spe = **fmt;
-	else
-		return (0);
-	return (1);
+	e->spe = **fmt;
+	if (!is_specifier(**fmt))
+	{
+		ft_bzero((e->s = malloc(2)), 2);
+		e->s[0] = **fmt;
+	}
+	return (0);
 }
 
 int			parser(char *fmt, va_list *ap, t_spe **start)
@@ -95,11 +97,10 @@ int			parser(char *fmt, va_list *ap, t_spe **start)
 	elem = *start;
 	while (*fmt)
 	{
-		if (*fmt == '%' && fmt[1] != '%')
+		if (*fmt++ == '%' && fmt[1] != '%')
 		{
-			fmt++;
 			if (!(elem = init_elem()))
-				return (-1);
+				return (1);
 			if (*start == NULL)
 				*start = elem;
 			else
@@ -107,8 +108,7 @@ int			parser(char *fmt, va_list *ap, t_spe **start)
 			parse_flags(&fmt, elem);
 			parse_width(&fmt, elem, ap);
 			parse_precision(&fmt, elem, ap);
-			if (!parse_spe(&fmt, elem))
-				return (-1);
+			parse_spe(&fmt, elem);
 			parse_str(elem, *ap);
 			last = elem;
 		}
@@ -116,5 +116,5 @@ int			parser(char *fmt, va_list *ap, t_spe **start)
 			fmt++;
 		fmt++;
 	}
-	return (1);
+	return (0);
 }

@@ -6,11 +6,19 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 15:24:51 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 14:40:44 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/16 12:56:16 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
+
+static void	reset_flags(t_spe *e)
+{
+	e->hash = 0;
+	e->space = 0;
+	e->plus = 0;
+	e->precision = -1;
+}
 
 static void	flags_vs_flags(t_spe *elem)
 {
@@ -65,6 +73,8 @@ int			check_exceptions(t_spe *start)
 {
 	while (start)
 	{
+		if (!is_specifier(start->spe))
+			reset_flags(start);
 		flags_vs_flags(start);
 		flags_vs_specifiers(start);
 		flags_vs_str(start);

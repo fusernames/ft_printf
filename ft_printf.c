@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:24:10 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 15:47:06 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/16 12:48:02 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ static int		print_str(char *fmt, t_spe *elem)
 	ret = 0;
 	while (fmt[i])
 	{
-		if (elem && elem->error)
+		if ((elem && elem->error))
 			return (-1);
 		if (fmt[i] == '%' && fmt[i + 1] != '%')
 		{
+			i++;
 			check_exceptions(elem);
-			while (!is_specifier(fmt[i]) && fmt[i + 1])
+			while (fmt[i] != elem->spe && fmt[i + 1])
 				i++;
 			i++;
 			ret += print_specifier(elem);
@@ -51,7 +52,7 @@ int				ft_printf(const char *format, ...)
 
 	start = NULL;
 	va_start(ap, format);
-	if (parser((char *)format, &ap, &start) == -1)
+	if (parser((char *)format, &ap, &start))
 	{
 		lst_del(start);
 		return (-1);
