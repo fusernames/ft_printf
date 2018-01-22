@@ -6,7 +6,7 @@
 #    By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:15:20 by alcaroff          #+#    #+#              #
-#    Updated: 2017/12/24 14:51:32 by alcaroff         ###   ########.fr        #
+#    Updated: 2018/01/22 20:26:40 by alcaroff         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FLAGS		=	-Wall -Wextra
 INCLUDES	=	includes
 SRC			=	\
 	ft_printf.c \
-	struct_manager.c \
+	lst_manager.c \
 	parser.c \
 	parse_str.c \
 	check_exceptions.c \

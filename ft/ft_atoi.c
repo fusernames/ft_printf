@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 21:56:53 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/11/16 02:12:59 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/22 21:29:58 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_isspace(int c)
 			c == '\v' || c == '\f' || c == '\r');
 }
 
-int		ft_atoi(const char *s)
+int			ft_atoi(const char *s)
 {
 	int		is_negative;
 	int		nb;

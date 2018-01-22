@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 22:14:18 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 11:45:42 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/22 21:48:14 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*ft_strndup(const char *s, int n)
 {
 	char	*dup;
-	int	i;
+	int		i;
 
 	i = 0;
 	if (s == NULL)

@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:24:10 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/16 12:48:02 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/22 20:01:23 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ static int		print_str(char *fmt, t_spe *elem)
 			ret += print_specifier(elem);
 			elem = elem->next;
 		}
-		else if (fmt[i] == '%' && fmt[i + 1] == '%')
-		{
+		else if (fmt[i] != '%')
 			ret += ft_putchar(fmt[i++]);
-			i++;
-		}
-		else if (fmt[i])
+		else if (fmt[i++] == '%' && fmt[i] == '%')
 			ret += ft_putchar(fmt[i++]);
 	}
 	return (ret);

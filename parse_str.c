@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 18:12:25 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 15:04:43 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/22 20:28:52 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static int	handle_unsigned(va_list ap, t_spe *elem)
 	else if (!conv[0])
 		n = va_arg(ap, unsigned int);
 	else
-		return (-1);
+		return (1);
 	elem->s = create_str(c, &n);
-	return (1);
+	return (0);
 }
 
 static int	handle_int(va_list ap, t_spe *elem)
@@ -80,9 +80,9 @@ static int	handle_int(va_list ap, t_spe *elem)
 	else if (!conv[0])
 		n = va_arg(ap, int);
 	else
-		return (-1);
+		return (1);
 	elem->s = create_str(c, &n);
-	return (1);
+	return (0);
 }
 
 static int	handle_char(va_list ap, t_spe *elem)
@@ -110,9 +110,7 @@ static int	handle_char(va_list ap, t_spe *elem)
 		if ((elem->s = ft_getwstr(va_arg(ap, wchar_t *), elem)) == NULL)
 			elem->s = ft_strndup("(null)", elem->precision);
 	}
-	if (!elem->s)
-		return (-1);
-	return (1);
+	return (0);
 }
 
 int			parse_str(t_spe *elem, va_list ap)
@@ -122,21 +120,12 @@ int			parse_str(t_spe *elem, va_list ap)
 	c = elem->spe;
 	if (c == 'x' || c == 'X' || c == 'u' || c == 'U' || c == 'o' ||
 			c == 'O' || c == 'p')
-	{
-		if (handle_unsigned(ap, elem) == -1)
-			return (-1);
-	}
+		handle_unsigned(ap, elem);
 	else if (c == 'd' || c == 'D' || c == 'i')
-	{
-		if (handle_int(ap, elem) == -1)
-			return (-1);
-	}
+		handle_int(ap, elem);
 	else if (c == 's' || c == 'S' || c == 'c' || c == 'C')
-	{
-		if (handle_char(ap, elem) == -1)
-			return (-1);
-	}
+		handle_char(ap, elem);
 	else
-		return (-1);
-	return (1);
+		return (1);
+	return (0);
 }

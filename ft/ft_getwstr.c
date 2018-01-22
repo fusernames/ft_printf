@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:25:03 by alcaroff          #+#    #+#             */
-/*   Updated: 2017/12/24 11:58:01 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/22 21:55:11 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	check_mbcurmax(wchar_t c, t_spe *e)
 		e->error = 1;
 }
 
-static int		wcharlen(wchar_t c)
-{	
+static int	wcharlen(wchar_t c)
+{
 	if (c <= 255)
 		return (1);
 	else if (c <= 2047)
@@ -38,10 +38,10 @@ static int		wcharlen(wchar_t c)
 		return (4);
 }
 
-char			*ft_getwchar(wchar_t c, t_spe *e)
+char		*ft_getwchar(wchar_t c, t_spe *e)
 {
 	char	*ret;
-	
+
 	check_mbcurmax(c, e);
 	if ((ret = malloc(5)) == NULL)
 		return (NULL);
@@ -62,23 +62,22 @@ char			*ft_getwchar(wchar_t c, t_spe *e)
 	else if (c > 65535 && MB_CUR_MAX > 3)
 	{
 		ret[0] = (((c >> 18) & 7) + 240);
-		ret[1] = (((c >> 12) & 63) + 128);	
-		ret[2] = (((c >> 6) & 63) + 128);	
-		ret[3] = ((c & 63) + 128);	
+		ret[1] = (((c >> 12) & 63) + 128);
+		ret[2] = (((c >> 6) & 63) + 128);
+		ret[3] = ((c & 63) + 128);
 	}
 	return (ret);
 }
 
-char			*ft_getwstr(wchar_t *str, t_spe *e)
+char		*ft_getwstr(wchar_t *str, t_spe *e)
 {
-	char	 	*ret;
-	char		*wc;
-	int				i;
-	int				j;
-	
+	char	*ret;
+	char	*wc;
+	int		i;
+	int		j;
+
 	i = 0;
-	if ((ret = malloc(ft_strlen((char *)str) * 4 + 1)) == NULL)
-		return (NULL);
+	ret = malloc(ft_strlen((char *)str) * 4 + 1);
 	while (*str)
 	{
 		if (e->precision > -1 && wcharlen(*str) + i > e->precision)
@@ -89,8 +88,7 @@ char			*ft_getwstr(wchar_t *str, t_spe *e)
 		}
 		check_mbcurmax(*str, e);
 		j = 0;
-		if ((wc = ft_getwchar(*str, e)) == NULL)
-			return (NULL);
+		wc = ft_getwchar(*str, e);
 		while (wc && wc[j])
 			ret[i++] = wc[j++];
 		free(wc);

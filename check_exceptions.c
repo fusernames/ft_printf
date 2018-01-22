@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 15:24:51 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/16 12:56:16 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/22 21:23:10 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ static void	flags_vs_str(t_spe *elem)
 		elem->plus = 0;
 		elem->space = 0;
 	}
-	if (!ft_strcmp("0", elem->s) && c != 'p')
+	if (!ft_strcmp("0", elem->s) && c != 'p' && c != 'o' && c != 'O')
+		elem->hash = 0;
+	if (!ft_strcmp("0", elem->s) && elem->precision == 0)
+		elem->s[0] = 0;
+	if (!ft_strcmp("0", elem->s) && elem->precision != 0 &&
+			(c == 'o' || c == 'O'))
 		elem->hash = 0;
 }
 
@@ -49,7 +54,7 @@ static void	flags_vs_specifiers(t_spe *elem)
 	char	c;
 
 	c = elem->spe;
-	if (c == 'x' || c == 'X' || c == 'o')
+	if (c == 'x' || c == 'X' || c == 'o' || c == 'U' || c == 'u')
 	{
 		elem->space = 0;
 		elem->plus = 0;

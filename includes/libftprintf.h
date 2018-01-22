@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:25:58 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/16 12:23:03 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/22 20:13:59 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ int				parser(char *fmt, va_list *ap, t_spe **start);
 int				parse_str(t_spe *start, va_list ap);
 int				check_exceptions(t_spe *start);
 int				crave(t_spe *start);
-int				lst_del(t_spe *start);
-t_spe			*init_elem(void);
 int				print_specifier(t_spe *e);
+
+int				lst_del(t_spe *start);
+t_spe			*init_elem(t_spe **start, t_spe *elem);
 
 int				is_specifier(int c);
 int				is_flag(int c);
