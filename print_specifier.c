@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/24 15:08:42 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/22 21:20:03 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/23 20:14:09 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ static int	print_width(t_spe *e, int flags, char *s, char *buf)
 	c = ' ';
 	len = 0;
 	s_len = ft_strlen(s);
-	if (s && s[0] == '-' && (e->spe == 'd' || e->spe == 'D' || e->spe == 'i')
-			&& e->precision < 1)
+	if (s && s[0] == '-' && (e->spe == 'd' || e->spe == 'D' || e->spe == 'i') && e->precision < s_len)
 		len++;
 	if (e->precision > 0 && e->precision - s_len > 0)
 		len -= e->precision - s_len;

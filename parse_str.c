@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 18:12:25 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/22 20:28:52 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/23 18:51:43 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ static char	*create_str(char c, void *n)
 	if (c == 'X')
 		return (ft_itoa_base_un(*((unsigned long long*)n), 16));
 	if (c == 'x' || c == 'p')
-	{
 		return (ft_strtolower(ft_itoa_base_un(*((unsigned long long*)n), 16)));
-	}
 	if (c == 'o' || c == 'O')
 		return (ft_itoa_base_un(*((unsigned long long*)n), 8));
 	if (c == 'u' || c == 'U')
@@ -37,14 +35,14 @@ static int	handle_unsigned(va_list ap, t_spe *elem)
 
 	conv = elem->conv;
 	c = elem->spe;
-	if (!ft_strcmp(conv, "hh"))
-		n = (unsigned char)va_arg(ap, int);
-	else if (!ft_strcmp(conv, "h"))
-		n = (unsigned short int)va_arg(ap, int);
-	else if (!ft_strcmp(conv, "l") || c == 'U')
+	if (!ft_strcmp(conv, "l") || c == 'U' || c == 'O')
 		n = va_arg(ap, unsigned long);
 	else if (!ft_strcmp(conv, "ll") || c == 'p')
 		n = va_arg(ap, unsigned long long);
+	else if (!ft_strcmp(conv, "hh"))
+		n = (unsigned char)va_arg(ap, int);
+	else if (!ft_strcmp(conv, "h"))
+		n = (unsigned short int)va_arg(ap, int);
 	else if (!ft_strcmp(conv, "j"))
 		n = va_arg(ap, uintmax_t);
 	else if (!ft_strcmp(conv, "z"))
@@ -65,12 +63,12 @@ static int	handle_int(va_list ap, t_spe *elem)
 
 	conv = elem->conv;
 	c = elem->spe;
-	if (!ft_strcmp(conv, "hh"))
+	if (!ft_strcmp(conv, "l") || c == 'D')
+		n = va_arg(ap, long);
+	else if (!ft_strcmp(conv, "hh"))
 		n = (char)va_arg(ap, int);
 	else if (!ft_strcmp(conv, "h"))
 		n = (short int)va_arg(ap, int);
-	else if (!ft_strcmp(conv, "l") || c == 'D')
-		n = va_arg(ap, long);
 	else if (!ft_strcmp(conv, "ll"))
 		n = va_arg(ap, long long);
 	else if (!ft_strcmp(conv, "j"))

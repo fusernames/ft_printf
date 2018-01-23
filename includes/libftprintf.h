@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:25:58 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/22 20:13:59 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/23 18:08:12 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <unistd.h>
 # include <wchar.h>
 # include <stdint.h>
+# include <limits.h>
 
 typedef struct	s_spe
 {

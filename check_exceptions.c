@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/03 15:24:51 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/22 21:23:10 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/23 18:58:57 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static void	flags_vs_specifiers(t_spe *elem)
 	char	c;
 
 	c = elem->spe;
-	if (c == 'x' || c == 'X' || c == 'o' || c == 'U' || c == 'u')
+	if (c == 'x' || c == 'X' || c == 'o' || c == 'U' || c == 'u' ||
+			c == 'o' || c == 'O')
 	{
 		elem->space = 0;
 		elem->plus = 0;

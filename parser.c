@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 19:38:37 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/22 20:32:24 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/23 20:02:24 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ static void	parse_width(char **fmt, t_spe *e, va_list *ap)
 	else if (**fmt == '*')
 	{
 		if ((e->width = va_arg(*ap, int)) < 0)
-			e->width = 0;
+		{
+			e->width = -(e->width);
+			e->minus = 1;
+		}
 		(*fmt)++;
 	}
 }

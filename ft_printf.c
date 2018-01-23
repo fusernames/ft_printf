@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 13:24:10 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/22 20:01:23 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/23 19:54:45 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		print_str(char *fmt, t_spe *elem)
 	{
 		if ((elem && elem->error))
 			return (-1);
-		if (fmt[i] == '%' && fmt[i + 1] != '%')
+		if (fmt[i] == '%' && fmt[i + 1] != '%' && fmt[i + 1])
 		{
 			i++;
 			check_exceptions(elem);
