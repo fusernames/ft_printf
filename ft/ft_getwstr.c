@@ -6,13 +6,13 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/11 19:25:03 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/23 18:47:06 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/24 17:45:14 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static void	check_mbcurmax(wchar_t c, t_spe *e)
+static int	check_mbcurmax(wchar_t c, t_spe *e)
 {
 	if (c < 0)
 		e->error = 1;
@@ -24,6 +24,7 @@ static void	check_mbcurmax(wchar_t c, t_spe *e)
 		e->error = 1;
 	if (c > 1114111 || (c > 55295 && c < 57344))
 		e->error = 1;
+	return (0);
 }
 
 static int	wcharlen(wchar_t c)
@@ -89,15 +90,11 @@ char		*ft_getwstr(wchar_t *str, t_spe *e)
 	ret = malloc(ft_strlen((char *)str) * 4 + 1);
 	while (*str)
 	{
-		if (e->precision > -1 && wcharlen(*str) + i > e->precision)
-		{
-			if (e->precision - i > 0)
-				check_mbcurmax(*str, e);
+		if (e->precision > -1 && wcharlen(str[0]) + i > e->precision)
 			break ;
-		}
-		check_mbcurmax(*str, e);
+		check_mbcurmax(str[0], e);
 		j = 0;
-		wc = ft_getwchar(*str, e);
+		wc = ft_getwchar(str[0], e);
 		while (wc && wc[j])
 			ret[i++] = wc[j++];
 		free(wc);
