@@ -6,7 +6,7 @@
 /*   By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/02 14:25:58 by alcaroff          #+#    #+#             */
-/*   Updated: 2018/01/23 18:08:12 by alcaroff         ###   ########.fr       */
+/*   Updated: 2018/01/24 19:04:02 by alcaroff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <unistd.h>
 # include <wchar.h>
 # include <stdint.h>
-# include <limits.h>
 
 typedef struct	s_spe
 {
@@ -56,6 +55,7 @@ char			*ft_itoa_base(long long n, int base);
 char			*ft_itoa_base_un(unsigned long long n, int base);
 char			*ft_getwstr(wchar_t *str, t_spe *e);
 char			*ft_getwchar(wchar_t c, t_spe *e);
+char			*ft_getchar(char c);
 
 int				ft_atoi(const char *s);
 void			ft_bzero(void *s, size_t n);
@@ -67,7 +67,6 @@ char			*ft_strdup(const char *s);
 char			*ft_strndup(const char *s, int n);
 size_t			ft_strlen(const char *s);
 char			*ft_strtolower(char *str);
-char			*ft_getchar(char c);
 int				ft_strisspace(const char *str);
 int				ft_putstr(const char *s);
 int				ft_putchar(int c);

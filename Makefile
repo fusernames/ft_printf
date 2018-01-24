@@ -6,7 +6,7 @@
 #    By: alcaroff <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 15:15:20 by alcaroff          #+#    #+#              #
-#    Updated: 2018/01/23 17:54:14 by alcaroff         ###   ########.fr        #
+#    Updated: 2018/01/24 19:00:55 by alcaroff         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC			=	\
 	ft/ft_strisspace.c \
 	ft/ft_putstr.c \
 	ft/ft_putchar.c
-OBJ			=	$(SRC:%.c=obj/%.o)
+OBJ			=	$(SRC:%.c=%.o)
 
 all: $(NAME)
 
@@ -47,21 +47,13 @@ $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
 
-obj/%.o: %.c
+%.o: %.c
 	gcc -c $< $(FLAGS) -o $@ -I $(INCLUDES)
 
 clean:
-	@rm -rf $(OBJ) main.o
+	@rm -rf $(OBJ)
 
 fclean: clean
 	@rm -rf $(NAME)
-
-f: re
-	@gcc main.c $(NAME) $(FLAGS) -I $(INCLUDES) -o ft_printf
-	@./ft_printf
-
-ff: all
-	@gcc main.c $(NAME) $(FLAGS) -I $(INCLUDES) -o ft_printf
-	@./ft_printf
 
 re: fclean all
